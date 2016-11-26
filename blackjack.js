@@ -208,7 +208,15 @@ var declareWinner = function(playerHand, dealerHand){ //keeps score the declare 
     return outcome+"<br />Dealer: "+dealerHand.score()+"<br />You "+playersScore;
 };
 
-})
+//Dealer's Hand
+var dealersHand = function() {
+  var hand = new Hand(deck); //new deck for the dealers hand
+
+  while (hand.score() < 17 && hand.length < 5){ //continue to hit between 5-17 below
+    hand.hitMe(); //hitMe button for hand equation above
+  }
+  return hand; //returns value of the dealers hand
+}
   // var deal = function() {
   //   //Private local variables
   //   var s = Math.floor(Math.random() * 4 + 1);
