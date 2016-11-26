@@ -114,12 +114,11 @@ var Hand = function(deck) {
   var cards = [];
 
      //Deal one card for player and one for dealer to start game
-     cards.push( deck.deal(), deck.deal());
+     cards.push(deck.deal(), deck.deal());
      //returns array of cards that represents the Hand
-     this.getHand = function(){
+     this.getHand = function() {
        return cards;
-
-     };
+   };
      //returns the value of the hand as the score
      this.score = function() {
        var i,
@@ -167,14 +166,13 @@ var Hand = function(deck) {
     for (i = 0; i < cards.length; i++){
         arrayOut.push('<div class="card ', cards[i].getSuit(),' ',cards[i].getNumber(),'">',cards[i].getName(),'</div>');
     }
-    return array
-  }
-
-
-
+    return arrayOut.join('');
+  };
 };
+
+
 console.log('what is happening here');
-Hand();
+
 
 
   // var deal = function() {
