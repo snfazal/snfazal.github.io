@@ -91,9 +91,10 @@ var Deck = function() {
   newCards();
    //shuffle below found on stackoverflow
   this.shuffle = function() { //method to shuffle deck of cards
-    for(var j, x, i = cards.length; i; j = parseInt(math.random() * i), x = cards[--i], cards[i] = cards[j], cards[j] = x); //shuffle must go through whole deck, thats why for loop
+    for(var j, x, i = cards.length; i; j = parseInt(math.random() * i), x = cards[--i], cards[i] = cards[j], cards[j] = x); //shuffle must go through whole deck
     return cards; //returns shuffled cards
   };
+
   //Array of cards representing the Deck
   this.getCards = function() {
     return cards;
@@ -113,17 +114,17 @@ var Hand = function(deck) {
   var cards = [];
 
      //Deal one card for player and one for dealer to start game
-     cards.push(deck.deal(), deckdeal());
+     cards.push( deck.deal(), deck.deal());
      //returns array of cards that represents the Hand
-     this.getHand = function() {
+     this.getHand = function(){
        return cards;
 
      };
      //returns the value of the hand as the score
      this.score = function() {
-       var i;
-           score = 0; //keeps score by value of card
-           cardVal = 0; //stores cards value
+       var i,
+           score = 0, //keeps score by value of card
+           cardVal = 0, //stores cards value
            aces = 0; //stores number of aces in the hand (later to detemine value)
        for (i=0; i<cards.length; i++){
            cardVal = cards[i].getValue();
@@ -141,10 +142,40 @@ var Hand = function(deck) {
       return score;
   };
   //returns array list of Card names in hand
+  this.printHand = function() {
+    var arrayOut = [],
+    i;
+
+    for (i = 0; i < cards.length; i++){ //must get through all the cards in hand
+        arrayOut.push(cards[i].getName());
+    }
+    return arrayOut.join(); //literally tells you what you're holding
+  };
+
+  //Adds a card from the Deck into players hands
+  this.hitMe = function() {
+    // console.log('what is happening here');
+    if (cards.length < 5){
+        cards.push(deck.deal());
+    }
+  };
+  //grabs the HTML image of the cards in hand at player
+  this.toHTML = function(){
+    var arrayOut = [],
+        i;
+
+    for (i = 0; i < cards.length; i++){
+        arrayOut.push('<div class="card ', cards[i].getSuit(),' ',cards[i].getNumber(),'">',cards[i].getName(),'</div>');
+    }
+    return array
+  }
 
 
 
 };
+console.log('what is happening here');
+Hand();
+
 
   // var deal = function() {
   //   //Private local variables
