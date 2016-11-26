@@ -173,8 +173,42 @@ var Hand = function(deck) {
 
 console.log('what is happening here');
 
+//Playing the game BLACKJACK
 
+var blackJack = (function ($){
 
+    var deck = new Deck(); //new deck for game (multiple decks MVP)
+
+    var wins = 0; //winning ratios
+    var losses = 0; //initially probability should be the same
+
+var declareWinner = function(playerHand, dealerHand){ //keeps score the declare the winner of each hand
+    var outcome = '', //end score
+    dealerScore = dealerHand.score(), //dealers hand out is his score
+    playerScore = userHand.score(); //players' hand out is her score
+
+    //if statement stating original blackjack game rules
+    if(playerScore > 21 || dealerScore === 21){ //pS less than dealer who has 21
+      outcome = " Sorry, You Lose! "; //winning outcome message
+        losses++; //player loses
+    }else if (playerScore <= 21 && userHand.getHand().length >=5){ //less than or equal to 21 with 5 cards total
+      outcome = " Yay! You win! "; //winning outcome message
+      wins++; //player wins
+    }else if (dealerScore > 21 || playerScore === 21 || playerScore > dealerHand.score()){ // dealer has less than 21 or player has 21
+      outcome = " You Win! "; //winning outcome message
+      wins++; //player wins
+    }else if (dealerScore > playerScore){ //dealer score is higher than players
+      outcome = " :( You lose! "; //winning outcome message
+      losses++; //player loses
+    }else if (dealerScore === userScore){
+      outcome = " it's a tie ";
+      //losses++; //player loses bc he doesn't win
+    }
+    //return code outputs score of the round. <br/> breaks it up in HTML, adds dealers hand score <br/> and adds the players score. Makes it all work in DOM
+    return outcome+"<br />Dealer: "+dealerHand.score()+"<br />You "+playersScore;
+};
+
+})
   // var deal = function() {
   //   //Private local variables
   //   var s = Math.floor(Math.random() * 4 + 1);
