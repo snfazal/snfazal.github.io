@@ -185,13 +185,13 @@ var blackJack = (function ($){
 var declareWinner = function(playerHand, dealerHand){ //keeps score the declare the winner of each hand
     var outcome = '', //end score
     dealerScore = dealerHand.score(), //dealers hand out is his score
-    playerScore = userHand.score(); //players' hand out is her score
+    playerScore = playerHand.score(); //players' hand out is her score
 
     //if statement stating original blackjack game rules
     if(playerScore > 21 || dealerScore === 21){ //pS less than dealer who has 21
       outcome = " Sorry, You Lose! "; //winning outcome message
-        losses++; //player loses
-    }else if (playerScore <= 21 && userHand.getHand().length >=5){ //less than or equal to 21 with 5 cards total
+        loses++; //player loses
+    }else if (playerScore <= 21 && playerHand.getHand().length >= 5){ //less than or equal to 21 with 5 cards total
       outcome = " Yay! You win! "; //winning outcome message
       wins++; //player wins
     }else if (dealerScore > 21 || playerScore === 21 || playerScore > dealerHand.score()){ // dealer has less than 21 or player has 21
@@ -199,24 +199,57 @@ var declareWinner = function(playerHand, dealerHand){ //keeps score the declare 
       wins++; //player wins
     }else if (dealerScore > playerScore){ //dealer score is higher than players
       outcome = " :( You lose! "; //winning outcome message
-      losses++; //player loses
-    }else if (dealerScore === userScore){
+      loses++; //player loses
+    }else if (dealerScore === playerScore){
       outcome = " it's a tie ";
       //losses++; //player loses bc he doesn't win
     }
     //return code outputs score of the round. <br/> breaks it up in HTML, adds dealers hand score <br/> and adds the players score. Makes it all work in DOM
-    return outcome+"<br />Dealer: "+dealerHand.score()+"<br />You "+playersScore;
-};
+    return outcome+"<br />Dealer: "+dealerHand.score()+"<br />You "+playerScore;
+    };
 
 //Dealer's Hand
-var dealersHand = function() {
-  var hand = new Hand(deck); //new deck for the dealers hand
+ var dealerHand = function() {
+      var hand = new Hand(deck); //new deck for the dealers hand
+      //while loop below makes dealer continue to hit when hand value bw 1-17
+      while (hand.score() < 17 && hand.length < 1) {
+      hand.hitMe(); //hitMe button for hand equation above
+      }
+      return hand; //returns value of the dealers hand
+    };
 
-  while (hand.score() < 17 && hand.length < 5){ //continue to hit between 5-17 below
-    hand.hitMe(); //hitMe button for hand equation above
-  }
-  return hand; //returns value of the dealers hand
-}
+    var yourHand;
+
+//CACHE SELECTORS
+    var $hitButton = $("#hitMe"),
+        $standButton = $("#stand"),
+        $dealButton = $("#deal"),
+        $score = $("#yourScore"),
+        $yourHand = $('#yourHand'),
+        $dealerHand = $('#dealerHand');
+
+//function that shows deal button and hides stand and hit
+    var showDeal = function() {
+      $hitButton.hide();
+      $standButton.hide();
+      $dealButton.show();
+    };
+
+    var showControls = function() {
+       $hitButton.show();
+       $standButton.show();
+       $dealButton.show();
+    }
+  };
+
+    var updateUI = function() {
+      $yourHand.html(yourHand)
+    }
+
+
+
+
+
   // var deal = function() {
   //   //Private local variables
   //   var s = Math.floor(Math.random() * 4 + 1);
