@@ -5,7 +5,7 @@ console.log('hello world, its blackjack');
   //Making the Deck of Cards
 // Constructor Function:
 //local variables below
-var Card = function(face, value, rank) {
+var Card = function(suit, value, rank) {
       //gets number of the cards in deck 1-52
     this.getNumber = function() {
         return number;
