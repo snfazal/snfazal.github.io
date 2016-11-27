@@ -1,10 +1,11 @@
-///DEAL OUT CARDS
+console.log('hello world, its blackjack');
+//DEAL OUT CARDS
 
   //
   //Making the Deck of Cards
 // Constructor Function:
 //local variables below
-var Card = function(suit, number) {
+var Card = function(face, value, rank) {
       //gets number of the cards in deck 1-52
     this.getNumber = function() {
         return number;
@@ -174,8 +175,9 @@ var Hand = function(deck) {
 console.log('what is happening here');
 
 //Playing the game BLACKJACK
+$(function(){
 
-var blackJack = (function ($){
+var blackJack = $(function (){
 
     var deck = new Deck(); //new deck for game (multiple decks MVP)
 
@@ -239,15 +241,16 @@ var declareWinner = function(playerHand, dealerHand){ //keeps score the declare 
        $hitButton.show();
        $standButton.show();
        $dealButton.show();
-    }
-  };
+    };
 
     var updateUI = function() {
       $yourHand.html(yourHand)
-    }
+    };
+
+  });
 
 
-
+});
 
 
   // var deal = function() {
