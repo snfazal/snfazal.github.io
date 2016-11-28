@@ -9,139 +9,80 @@ console.log('hello world, its blackjack');
       var $resetButton = $('#reset'); //ND
 
 
-//       * Create game stats and objects  *
+//       * Create a deck of cards and make sure it suffles *
 
-  // Object constructor makes each card in deck
+  // Object constructor makes each card in the deck
   var Card = function(suit, value) { //rank is value tracked
       this.face = face;
       this.value = value;
-  };
+   };
 
-  //Deck Constructor Function
+  //deck = object within container
   var Deck = function() {
         this.deck = [];
    //method to make the deck
-   this.makeDeck =  { //decks made bc of declared objects
-        cards: [],
-        cardSuits: ['hearts', 'spades', 'diamonds', 'clubs'], //face cards
-        faces: ['Jack', 'Queen', 'King'], //face card ranks
+   var makeDeck =  { //decks made bc of declared objects
+        cards: [], //1-52 cards
+        cardSuits: ['hearts', 'spades', 'diamonds', 'clubs'], //card suits
+        faces: ['Jack', 'Queen', 'King'], //face cards
         cardValues: ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10], //card values
         // aceRankValue: ['Ace'], //ace identifies with ace only
-      };
+
    //for loop applies suits/ranks to each card by makeDeck and then pushes it through Deck array
-   makeNewCards: function () {
-    for (var i = 0, i < this.cardSuits.length; i++) { //gets the suit
+   makeValueCards: function() {
+     for (var i = 0; i < this.cardSuits.length; i++) { //gets the suit
       for (var j = 0; j < this.cardValues.length; j++) {//gets cards value
-        var nextCard = new Card(this.cardSuits[i], this.cardValues[j]); //cardSuits+cardValues create nextCard, that is the new card
-        this.deck.push(new Card(newCard); //newCard pushed through deck to player
+        var eachCard = new Card(this.cardSuits[i], this.cardValues[j]); //cardSuits+cardValues create nextCard, that is the new card
+        this.cards.push(eachCard); //newCard pushed through deck to player
       }
-    }
-  }, //end madeDeck
-
-
-
-
-
-      //set up came from codeacademy game
-      this.getSuit = function() {
-        var suitName = '';
-          switch(suit) {
-            case 1:
-                suitName = "Hearts";
-            case 2:
-                suitName = "Clubs";
-            case 3:
-                suitName = "Spades";
-            case 4:
-                suitName = "Diamonds";
-         }
-         return suitName;
-      };
-
-   // Returns the HTML coded symbol of card suit
-   //set up idea from codeacademy game
-      this.makeFace = function (){
-        var suitName = '';
-          switch (suit){
-            case 1:
-                suitName = "&hearts;";
-                break;
-            case 2:
-                suitName = "&clubs;";
-                break;
-            case 3:
-                suitName = "&spades;";
-                break;
-            case 4:
-                suitName = "&diamonds;";
-                break;
-          }
-          return suitName;
-        };
-        //Turns number into correct blackjack value to keep score
-        this.getValue = function() {
-            var value = number;
-            if (number >= 10){
-                value = 10;
-            } if (number === 1) {
-                 value = 11;
-            } return value;
-          };
-      // returns face cards and regular numbers
-      this.getNumber = function() {
-        var cardName = '';
-          switch(number) {
-            case 1:
-                cardName = "Ace";
-            case 11:
-                cardName = "Jack";
-            case 12:
-                cardName = "Queen";
-            case 13:
-                cardname = "King";
-            default:
-                cardName = number;
-         }
-         return cardName+this.getSymbol();
-      };
-
-//Constructor Function:
-  //Function: creates a random card
-var Deck = function() {
-  var cards = [];
-  //below creates new SET of cards
-  var newCards = function() {
-    var i, suit, number;
-    for (i=0; i < 52; i++) {
-        suit = i % 4 + 1;
-        cards.push(new Card(suit, number));
-    }
-  };
-  //create new cards
-  newCards();
-   //shuffle below found on stackoverflow
-  this.shuffle = function() { //method to shuffle deck of cards
-    for(var j, x, i = cards.length; i; j = parseInt(math.random() * i), x = cards[--i], cards[i] = cards[j], cards[j] = x); //shuffle must go through whole deck
-    return cards; //returns shuffled cards
-  };
-
-  //Array of cards representing the Deck
-  this.getCards = function() {
-    return cards;
-  };
-  this.deal = function() {
-    if (!cards.length){
-       console.log(' no more cards, new deck ');
-       newCards();
-       this.shuffle();
      }
-     return cards.pop();
-  };
+   }, //end makeDeck.makeValueCards
+
+   makeFaceCards: function() { //function makes face cards
+      for (var i = 0; i < this.cardSuits.length; i++) { //get next cards suit
+        for (var j = 0; j < this.faces.length; j++) { //gets next cards face
+          this.cards.push(new Card(this.faces[i], 10, this.cardSuits[j])); //creates new card w/face, suit and value and pushes to makeDeck
+        }
+      }
+    }, //end makeDeck.makeValueCards
+
+    // Fisher-Yates shuffle algorithum below:
+   shuffle: function() {
+     for (i = this.deck.length - 1; i > 0; i-=1) {
+       j = Math.floor(Math.random() * (i + 1));
+       temp = this.deck[i];
+       this.deck[i] = this.deck[j];
+       this.deck[j] = temp;
+     }
+     return this.deck;
+   }, //end makeDeck.shuffle
+
+
+   makeItWork: function() {
+     this.deck.makeValueCards();
+     this.deck.makeFaceCards();
+     this.deck.shuffle();
+     }
+
+  } //end of deck object
+ deck.makeItWork();
+
 };
 
-//Constructor Function:
-var Hand = function(deck) {
-  var cards = [];
+/////////////////////////////////////////////////////////////
+  //   *player and dealer objects
+  var player = function(deck) {
+      cards: [];
+
+  //method to return value of hand
+    pHandVal: function(){
+      var sum = 0;
+      for (var i = 0; i < this.pHand.length; i++) {
+        sum+= this.pHand[i].value;
+      }
+      return sum;
+    };
+
 
      //Deal one card for player and one for dealer to start game
      cards.push(deck.deal(), deck.deal());
@@ -197,11 +138,154 @@ var Hand = function(deck) {
         arrayOut.push('<div class="card ', cards[i].getSuit(),' ',cards[i].getNumber(),'">',cards[i].getName(),'</div>');
     }
     return arrayOut.join('');
-  };
+  },
+
 };
 
 
-console.log('what is happening here');
+//    // Returns the HTML coded symbol of card suit
+//    //set up idea from codeacademy game
+//       this.makeFace = function (){
+//         var suitName = '';
+//           switch (suit){
+//             case 1:
+//                 suitName = "&hearts;";
+//                 break;
+//             case 2:
+//                 suitName = "&clubs;";
+//                 break;
+//             case 3:
+//                 suitName = "&spades;";
+//                 break;
+//             case 4:
+//                 suitName = "&diamonds;";
+//                 break;
+//           }
+//           return suitName;
+//         };
+//         //Turns number into correct blackjack value to keep score
+//         this.getValue = function() {
+//             var value = number;
+//             if (number >= 10){
+//                 value = 10;
+//             } if (number === 1) {
+//                  value = 11;
+//             } return value;
+//           };
+//       // returns face cards and regular numbers
+//       this.getNumber = function() {
+//         var cardName = '';
+//           switch(number) {
+//             case 1:
+//                 cardName = "Ace";
+//             case 11:
+//                 cardName = "Jack";
+//             case 12:
+//                 cardName = "Queen";
+//             case 13:
+//                 cardname = "King";
+//             default:
+//                 cardName = number;
+//          }
+//          return cardName+this.getSymbol();
+//       };
+//
+// //Constructor Function:
+//   //Function: creates a random card
+// var Deck = function() {
+//   var cards = [];
+//   //below creates new SET of cards
+//   var newCards = function() {
+//     var i, suit, number;
+//     for (i=0; i < 52; i++) {
+//         suit = i % 4 + 1;
+//         cards.push(new Card(suit, number));
+//     }
+//   };
+//   //create new cards
+//   newCards();
+//    //shuffle below found on stackoverflow
+//   this.shuffle = function() { //method to shuffle deck of cards
+//     for(var j, x, i = cards.length; i; j = parseInt(math.random() * i), x = cards[--i], cards[i] = cards[j], cards[j] = x); //shuffle must go through whole deck
+//     return cards; //returns shuffled cards
+//   };
+//
+//   //Array of cards representing the Deck
+//   this.getCards = function() {
+//     return cards;
+//   };
+//   this.deal = function() {
+//     if (!cards.length){
+//        console.log(' no more cards, new deck ');
+//        newCards();
+//        this.shuffle();
+//      }
+//      return cards.pop();
+//   };
+// };
+
+//Constructor Function:
+// var Hand = function(deck) {
+//   var cards = [];
+//
+//      //Deal one card for player and one for dealer to start game
+//      cards.push(deck.deal(), deck.deal());
+//      //returns array of cards that represents the Hand
+//      this.getHand = function() {
+//        return cards;
+//    };
+//      //returns the value of the hand as the score
+//      this.score = function() {
+//        var i,
+//            score = 0, //keeps score by value of card
+//            cardVal = 0, //stores cards value
+//            aces = 0; //stores number of aces in the hand (later to detemine value)
+//        for (i=0; i<cards.length; i++){
+//            cardVal = cards[i].getValue();
+//            if (cardVal == 11) {
+//                aces += 1;
+//          }
+//          score += cardVal;
+//       }
+//       //Checks to see if Aces should be 1 or 11 (ask matt why this way best?? makes game easier?)
+//       //*
+//     while (score > 21 && aces > 0){
+//           score -= 10;
+//           aces -=1;
+//     }
+//       return score;
+//   };
+//   //returns array list of Card names in hand
+//   this.printHand = function() {
+//     var arrayOut = [],
+//     i;
+//
+//     for (i = 0; i < cards.length; i++){ //must get through all the cards in hand
+//         arrayOut.push(cards[i].getName());
+//     }
+//     return arrayOut.join(); //literally tells you what you're holding
+//   };
+//
+//   //Adds a card from the Deck into players hands
+//   this.hitMe = function() {
+//     // console.log('what is happening here');
+//     if (cards.length < 5){
+//         cards.push(deck.deal());
+//     }
+//   };
+//   //grabs the HTML image of the cards in hand at player
+//   this.toHTML = function(){
+//     var arrayOut = [],
+//         i;
+//
+//     for (i = 0; i < cards.length; i++){
+//         arrayOut.push('<div class="card ', cards[i].getSuit(),' ',cards[i].getNumber(),'">',cards[i].getName(),'</div>');
+//     }
+//     return arrayOut.join('');
+//   };
+
+
+
 
 //Playing the game BLACKJACK
 // $(function(){
@@ -278,7 +362,7 @@ console.log('what is happening here');
 
 
 
-}); //closes window.onload function
+// }); //closes window.onload function
 
 
   // var deal = function() {
