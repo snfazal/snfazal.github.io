@@ -72,6 +72,10 @@ console.log('hello world, its blackjack');
 
 };
 
+/* Without Blaine the functionality below wouldn't work, I would be lost and out of WDI and my life would simply be over. His exact words were "...when you say reorder can you clarify that alil, and you dont have to put this. in front of the methods, but they can go inside the methods like this.hitMe would just be hitMe: and this. would go in front of cards like this.cards.length. this refers to the player object. your code looks though ! I'll keep checking it out to see if i can find anything..."
+
+As you can see, the below code, looks cleaner, it functions, I understand it(nothing fancy like before) and IT WORKS! Thank Blaine! */
+
    var player = {
      pHand: [],
 
@@ -111,6 +115,11 @@ console.log('hello world, its blackjack');
     reset: function() {
       this.hand.length = 0;
       document.getElementById('playerDisplay').innerHTML = '';
+    },
+
+    //method to display hand value in playerDisplay div
+    displayHand: function() {
+      document.getElementById('playerDisplay').innerHTML = this.handValue();
     },
 
   // //returns array with a list of the names (suits/faces/values) of the cards in the players hand
