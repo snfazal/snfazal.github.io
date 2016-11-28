@@ -11,11 +11,14 @@ console.log('hello world, its blackjack');
 
 //       * Create a deck of cards and make sure it suffles *
 
-  // Object constructor makes each card in the deck
+  // Card constructor makes each card in the deck
   var Card = function(suit, value) { //rank is value tracked
       this.face = face;
       this.value = value;
    };
+
+
+//////////////////////////////////////////////////////////////////
 
   //deck = object within container
   var Deck = function() {
@@ -69,78 +72,81 @@ console.log('hello world, its blackjack');
 
 };
 
-/////////////////////////////////////////////////////////////
-  //   *player and dealer objects
-  var player = function(deck) {
-      cards: [];
+   var player = {
+     pHand: [],
 
-  //method to return value of hand
-    pHandVal: function(){
-      var sum = 0;
-      for (var i = 0; i < this.pHand.length; i++) {
-        sum+= this.pHand[i].value;
+     pHandTotal: function() {
+       score = 0, //keeps score by value of cards
+       cardVal = 0, //stores value of cards in hand
+       aces = 0; //stores number of aces in the hand
+       for (i=0; i < pHand.length; i++){ //phandtotal.phand through the array
+         var value = pHand[i].getValue(); //generates value of above
+         if (value == 11) { //if value is 11 then ace is 1
+             aces += 1;
       }
-      return sum;
-    };
-
-
-     //Deal one card for player and one for dealer to start game
-     cards.push(deck.deal(), deck.deal());
-     //returns array of cards that represents the Hand
-     this.getHand = function() {
-       return cards;
-   };
-     //returns the value of the hand as the score
-     this.score = function() {
-       var i,
-           score = 0, //keeps score by value of card
-           cardVal = 0, //stores cards value
-           aces = 0; //stores number of aces in the hand (later to detemine value)
-       for (i=0; i<cards.length; i++){
-           cardVal = cards[i].getValue();
-           if (cardVal == 11) {
-               aces += 1;
-         }
-         score += cardVal;
-      }
-      //Checks to see if Aces should be 1 or 11 (ask matt why this way best?? makes game easier?)
-      //*
-    while (score > 21 && aces > 0){
-          score -= 10;
+      score += cardVal; //
+     }
+      //Checks to see if Aces should be 1 or 11 (DM)
+      while (score > 21 && aces > 0){ //while # is bw 21 and 0
+          score -= 11; //
           aces -=1;
     }
-      return score;
-  };
-  //returns array list of Card names in hand
-  this.printHand = function() {
-    var arrayOut = [],
-    i;
-
-    for (i = 0; i < cards.length; i++){ //must get through all the cards in hand
-        arrayOut.push(cards[i].getName());
-    }
-    return arrayOut.join(); //literally tells you what you're holding
-  };
-
-  //Adds a card from the Deck into players hands
-  this.hitMe = function() {
-    // console.log('what is happening here');
-    if (cards.length < 5){
-        cards.push(deck.deal());
-    }
-  };
-  //grabs the HTML image of the cards in hand at player
-  this.toHTML = function(){
-    var arrayOut = [],
-        i;
-
-    for (i = 0; i < cards.length; i++){
-        arrayOut.push('<div class="card ', cards[i].getSuit(),' ',cards[i].getNumber(),'">',cards[i].getName(),'</div>');
-    }
-    return arrayOut.join('');
+      return score; //returns aces value based on cards.score function
   },
 
+      //method to hit
+    hit: function() {
+      var hitMe = pdeck.deck.pop(); //.pop takes the last card from deck
+      this.hand.push(hitMe); //grabs the last cards and pushes it into hand array
+      console.log(this.hand);
+    },
+
+    Bust: function() { //method checking for bust
+      if (this.cardVal() > 21) { //if cardVal is over 21
+        return true; //return true, the player bust
+      };
+      return false; //if cardVal is under 21 return false
+    },
+
+    reset: function() {
+      this.hand.length = 0;
+      document.getElementById('playerDisplay').innerHTML = '';
+    },
+
+  // //returns array with a list of the names (suits/faces/values) of the cards in the players hand
+  // this.nameHand = function() {
+  //   var yourCardsAre = [],
+  //   i;
+  //
+  //   for (i = 0; i < cards.length; i++){ //must get through all the cards in hand
+  //       yourCardsAre.push(cards[i].getName());
+  //   }
+  //   return yourCardsAre.join(); //literally tells you what cards you're holding in hand
+  // };
+  //
+  // //meethod to hit
+  // this.hitMe = function() { //adds card from deck to hand at play
+  //   // console.log('what is happening here');
+  //   if (cards.length < 5){
+  //       cards.push(deck.deal());
+  //   }
+  // };
+  // //grabs the HTML id of the cards in players hand
+  // this.toHTML = function(){
+  //   var yourCardsAre = [],
+  //       i;
+  //
+  //   for (i = 0; i < cards.length; i++){
+  //       arrayOut.push('<div class="card ', cards[i].getSuit(),' ',cards[i].getNumber(),'">',cards[i].getName(),'</div>');
+  //   }
+  //   return arrayOut.join('');
+  // };
+
 };
+
+});
+
+
 
 
 //    // Returns the HTML coded symbol of card suit
