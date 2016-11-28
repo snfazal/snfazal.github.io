@@ -1,17 +1,47 @@
 console.log('hello world, its blackjack');
 //DEAL OUT CARDS
 
-  //
-  //Making the Deck of Cards
-// Constructor Function:
-//local variables below
-var Card = function(suit, value, rank) {
-      //gets number of the cards in deck 1-52
-    this.getNumber = function() {
-        return number;
-    };
+  $(function(){ //window.onload jQuery style
+    // collecting all buttons
+      var $hitButton = $('#hit'); //MVP
+      var $stayButton = $('#stay'); //MVP
+      var $clearButton = $('#clear'); //ND essentially start new game/clear hand
+      var $resetButton = $('#reset'); //ND
 
-      //Returns the actual suit name as string
+
+//       * Create game stats and objects  *
+
+  // Object constructor makes each card in deck
+  var Card = function(suit, value) { //rank is value tracked
+      this.face = face;
+      this.value = value;
+  };
+
+  //Deck Constructor Function
+  var Deck = function() {
+        this.deck = [];
+   //method to make the deck
+   this.makeDeck =  { //decks made bc of declared objects
+        cards: [],
+        cardSuits: ['hearts', 'spades', 'diamonds', 'clubs'], //face cards
+        faces: ['Jack', 'Queen', 'King'], //face card ranks
+        cardValues: ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10], //card values
+        // aceRankValue: ['Ace'], //ace identifies with ace only
+      };
+   //for loop applies suits/ranks to each card by makeDeck and then pushes it through Deck array
+   makeNewCards: function () {
+    for (var i = 0, i < this.cardSuits.length; i++) { //gets the suit
+      for (var j = 0; j < this.cardValues.length; j++) {//gets cards value
+        var nextCard = new Card(this.cardSuits[i], this.cardValues[j]); //cardSuits+cardValues create nextCard, that is the new card
+        this.deck.push(new Card(newCard); //newCard pushed through deck to player
+      }
+    }
+  }, //end madeDeck
+
+
+
+
+
       //set up came from codeacademy game
       this.getSuit = function() {
         var suitName = '';
@@ -30,7 +60,7 @@ var Card = function(suit, value, rank) {
 
    // Returns the HTML coded symbol of card suit
    //set up idea from codeacademy game
-      this.getSymbol = function (){
+      this.makeFace = function (){
         var suitName = '';
           switch (suit){
             case 1:
@@ -74,7 +104,6 @@ var Card = function(suit, value, rank) {
          }
          return cardName+this.getSymbol();
       };
-  };
 
 //Constructor Function:
   //Function: creates a random card
@@ -175,82 +204,81 @@ var Hand = function(deck) {
 console.log('what is happening here');
 
 //Playing the game BLACKJACK
-$(function(){
-
-var blackJack = $(function (){
-
-    var deck = new Deck(); //new deck for game (multiple decks MVP)
-
-    var wins = 0; //winning ratios
-    var losses = 0; //initially probability should be the same
-
-var declareWinner = function(playerHand, dealerHand){ //keeps score the declare the winner of each hand
-    var outcome = '', //end score
-    dealerScore = dealerHand.score(), //dealers hand out is his score
-    playerScore = playerHand.score(); //players' hand out is her score
-
-    //if statement stating original blackjack game rules
-    if(playerScore > 21 || dealerScore === 21){ //pS less than dealer who has 21
-      outcome = " Sorry, You Lose! "; //winning outcome message
-        loses++; //player loses
-    }else if (playerScore <= 21 && playerHand.getHand().length >= 5){ //less than or equal to 21 with 5 cards total
-      outcome = " Yay! You win! "; //winning outcome message
-      wins++; //player wins
-    }else if (dealerScore > 21 || playerScore === 21 || playerScore > dealerHand.score()){ // dealer has less than 21 or player has 21
-      outcome = " You Win! "; //winning outcome message
-      wins++; //player wins
-    }else if (dealerScore > playerScore){ //dealer score is higher than players
-      outcome = " :( You lose! "; //winning outcome message
-      loses++; //player loses
-    }else if (dealerScore === playerScore){
-      outcome = " it's a tie ";
-      //losses++; //player loses bc he doesn't win
-    }
+// $(function(){
+//
+// var blackJack = $(function (){
+//
+//     var deck = new Deck(); //new deck for game (multiple decks MVP)
+//
+//     var wins = 0; //winning ratios
+//     var losses = 0; //initially probability should be the same
+//
+// var declareWinner = function(playerHand, dealerHand){ //keeps score the declare the winner of each hand
+//     var outcome = '', //end score
+//     dealerScore = dealerHand.score(), //dealers hand out is his score
+//     playerScore = playerHand.score(); //players' hand out is her score
+//
+//     //if statement stating original blackjack game rules
+//     if(playerScore > 21 || dealerScore === 21){ //pS less than dealer who has 21
+//       outcome = " Sorry, You Lose! "; //winning outcome message
+//         loses++; //player loses
+//     }else if (playerScore <= 21 && playerHand.getHand().length >= 5){ //less than or equal to 21 with 5 cards total
+//       outcome = " Yay! You win! "; //winning outcome message
+//       wins++; //player wins
+//     }else if (dealerScore > 21 || playerScore === 21 || playerScore > dealerHand.score()){ // dealer has less than 21 or player has 21
+//       outcome = " You Win! "; //winning outcome message
+//       wins++; //player wins
+//     }else if (dealerScore > playerScore){ //dealer score is higher than players
+//       outcome = " :( You lose! "; //winning outcome message
+//       loses++; //player loses
+//     }else if (dealerScore === playerScore){
+//       outcome = " it's a tie ";
+//       //losses++; //player loses bc he doesn't win
+//     }
     //return code outputs score of the round. <br/> breaks it up in HTML, adds dealers hand score <br/> and adds the players score. Makes it all work in DOM
-    return outcome+"<br />Dealer: "+dealerHand.score()+"<br />You "+playerScore;
-    };
+    // return outcome+"<br />Dealer: "+dealerHand.score()+"<br />You "+playerScore;
+    // };
 
 //Dealer's Hand
- var dealerHand = function() {
-      var hand = new Hand(deck); //new deck for the dealers hand
-      //while loop below makes dealer continue to hit when hand value bw 1-17
-      while (hand.score() < 17 && hand.length < 1) {
-      hand.hitMe(); //hitMe button for hand equation above
-      }
-      return hand; //returns value of the dealers hand
-    };
-
-    var yourHand;
-
-//CACHE SELECTORS
-    var $hitButton = $("#hitMe"),
-        $standButton = $("#stand"),
-        $dealButton = $("#deal"),
-        $score = $("#yourScore"),
-        $yourHand = $('#yourHand'),
-        $dealerHand = $('#dealerHand');
-
-//function that shows deal button and hides stand and hit
-    var showDeal = function() {
-      $hitButton.hide();
-      $standButton.hide();
-      $dealButton.show();
-    };
-
-    var showControls = function() {
-       $hitButton.show();
-       $standButton.show();
-       $dealButton.show();
-    };
-
-    var updateUI = function() {
-      $yourHand.html(yourHand)
-    };
-
-  });
+//  var dealerHand = function() {
+//       var hand = new Hand(deck); //new deck for the dealers hand
+//       //while loop below makes dealer continue to hit when hand value bw 1-17
+//       while (hand.score() < 17 && hand.length < 1) {
+//       hand.hitMe(); //hitMe button for hand equation above
+//       }
+//       return hand; //returns value of the dealers hand
+//     };
+//
+//     var yourHand;
+//
+// //CACHE SELECTORS
+//     var $hitButton = $("#hitMe"),
+//         $standButton = $("#stand"),
+//         $dealButton = $("#deal"),
+//         $score = $("#yourScore"),
+//         $yourHand = $('#yourHand'),
+//         $dealerHand = $('#dealerHand');
+//
+// //function that shows deal button and hides stand and hit
+//     var showDeal = function() {
+//       $hitButton.hide();
+//       $standButton.hide();
+//       $dealButton.show();
+//     };
+//
+//     var showControls = function() {
+//        $hitButton.show();
+//        $standButton.show();
+//        $dealButton.show();
+//     };
+//
+//     var updateUI = function() {
+//       $yourHand.html(yourHand)
+//     };
 
 
-});
+
+}); //closes window.onload function
 
 
   // var deal = function() {
