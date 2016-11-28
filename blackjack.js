@@ -1,21 +1,83 @@
 console.log('hello world, its blackjack');
 //DEAL OUT CARDS
 
-  $(function(){ //window.onload jQuery style
-    // collecting all buttons
-      var $hitButton = $('#hit'); //MVP
-      var $stayButton = $('#stay'); //MVP
-      var $clearButton = $('#clear'); //ND essentially start new game/clear hand
-      var $resetButton = $('#reset'); //ND
+$(function(){ //window.onload, loads functionality within the window
 
 
-//       * Create a deck of cards and make sure it suffles *
+    player.hitMe(); //cards dealt to player
+    player.hitMe(); //two cards for player
 
-  // Card constructor makes each card in the deck
-  var Card = function(suit, value) { //rank is value tracked
-      this.face = face;
-      this.value = value;
-   };
+    dealer.deal(); //dealer deals out one card for himself, game rules accordin to wikipedia
+
+    player.showHand(); //displays player hand
+    dealer.showHand(); //displays dealers hand
+
+    $('#bet').on('click', function() { //event listener on bet button
+      bank.bet(); //bank enacts bet button visually
+      document.getElementById('bet').style.visibility='hidden'; //no longer can bet button be seen muwahahaha
+
+    $('#hitMe').on('click', function(){ //adds eventlistener to hit buttons
+        player.hitMe(); //event handler: player hits
+        player.showHand(); //method displays players hand
+        if (player.checkBust()) {
+          alert (' Busted! ');
+
+          player.reset();
+          dealer.reset();
+
+          bank.clearInputBox(); //method to clear bet input box
+          document.getElementById('bet').style.visibility='visible'; //makes bet button visible to functiontional on gameboard
+          dealer.deal(); //dealer deals out a card to play hand
+        }
+
+    $('#stay').on('click', function(){ //adds event listener onto stay button
+        dealer.hitMe(); //dealer hits
+        if (dealer.bust()) { //if statement for player to win if dealer busts
+          dealer.showHand(); //displays dealers hand at play
+          bank.toWin(); //bank enacts method of winning bet toWin game
+          alert(' Yaayyy! You Win! Dealer has busted. ') //alerts player they have won
+          player.reset(); // to zero for new game
+          dealer.reset(); //to zero for new game
+          bank.clearInputBox(); //clears input box
+          document.getElementById('bet').style.visibility='visible'; //bet button appears so player can place bets
+          dealer.deal(); //dealer deals card to himself
+        } else if (player.handValue() === dealer.handValue()) { //or if the player and the dealer are in a tie
+          dealer.showHand(); //dealer shows his hand and bank identifies a tie
+          bank.pushBet(); //bank shows a tie
+          alert (' push your bet through ');
+          player.reset(); //player reset to zero
+          dealer.reset(); //dealer resets to zeero
+          bank.clearInputBox(); //method clears bet box
+          document.getElementById('bet').style.visibility='visible' //bet box appears again
+          dealer.deal(); //dealer deals out one card
+        } else if (player.handValue() > dealer.handValue()) { //players hand has more value than dealer
+          dealer.showHand(); //bank reflects player winning
+          bank.toWin(); //bank enacts player winning
+          alert(" You Win! "); //alert player wins
+          player.reset(); //player zero
+          dealer.reset(); //dealer back to zero
+          bank.ClearInputBox(); //clear bet box
+          document.getElementById('bet').style.visibility='visible' //make it show up
+          dealer.deal(); //dealer dealt card
+        } else if (player.handValue() < dealer.handValue()) { // player gets less than the dealer
+          dealer.showHand(); //banks sees a winner
+          alert(' Dealer has more than you, so you lose '); //alert
+          player.reset(); //player zero
+          dealer.reset(); //dealer back to zero
+          bank.clearInputBox();//wiped clean
+          document.getElementById('bet').style.visibility='visible'
+          dealer.deal(); //cards dealt by dealer who is showing one cardddd
+
+        }
+
+
+      })
+
+
+    })
+
+    // })//
+
 
 
 //////////////////////////////////////////////////////////////////
@@ -62,9 +124,9 @@ console.log('hello world, its blackjack');
 
 
    makeItWork: function() {
-     this.deck.makeValueCards();
-     this.deck.makeFaceCards();
-     this.deck.shuffle();
+     deck.makeValueCards();
+     deck.makeFaceCards();
+     deck.shuffle();
      }
 
   } //end of deck object
@@ -77,50 +139,151 @@ console.log('hello world, its blackjack');
 As you can see, the below code, looks cleaner, it functions, I understand it(nothing fancy like before) and IT WORKS! Thank Blaine! */
 
    var player = {
-     pHand: [],
+     hand: [],
 
-     pHandTotal: function() {
+     handValue: function() {
        score = 0, //keeps score by value of cards
        cardVal = 0, //stores value of cards in hand
        aces = 0; //stores number of aces in the hand
-       for (i=0; i < pHand.length; i++){ //phandtotal.phand through the array
-         var value = pHand[i].getValue(); //generates value of above
-         if (value == 11) { //if value is 11 then ace is 1
+       for (i=0; i < this.hand.length; i++) { //phandtotal.phand through the array
+         var value = this.hand[i].value; //generates value of above
+         if (value <= 10) { //if value is 11 then ace is 1
              aces += 1;
       }
       score += cardVal; //
      }
       //Checks to see if Aces should be 1 or 11 (DM)
       while (score > 21 && aces > 0){ //while # is bw 21 and 0
-          score -= 11; //
+          score -= 10; //
           aces -=1;
     }
       return score; //returns aces value based on cards.score function
   },
 
       //method to hit
-    hit: function() {
-      var hitMe = pdeck.deck.pop(); //.pop takes the last card from deck
-      this.hand.push(hitMe); //grabs the last cards and pushes it into hand array
+    hitMe: function() {
+      var hitCard = deck.cards.pop(); //.pop takes the last card from deck
+      this.hand.push(hitCard); //grabs the last cards and pushes it into hand array
       console.log(this.hand);
     },
 
-    Bust: function() { //method checking for bust
-      if (this.cardVal() > 21) { //if cardVal is over 21
+    bust: function() { //method checking for bust
+      if (this.handValue() > 21) { //if handValue is over 21
         return true; //return true, the player bust
       };
       return false; //if cardVal is under 21 return false
     },
 
-    reset: function() {
-      this.hand.length = 0;
-      document.getElementById('playerDisplay').innerHTML = '';
+    reset: function() { //method to reset hand
+      this.hand.length = 0; // hand at play resets to 0
+      document.getElementById('playersHand').innerHTML = ''; //
     },
 
-    //method to display hand value in playerDisplay div
-    displayHand: function() {
-      document.getElementById('playerDisplay').innerHTML = this.handValue();
+
+    showHand: function() { //method shows had value at play
+      document.getElementById('playersHand').innerHTML = this.handValue();
+    }
+
+  };
+
+///////////////////////////////////////////////////////////////////////
+
+//dealer objects
+
+    var dealer = function() {
+      hand: [],
+
+    handValue: function() { //renamed to this, because its showing the value of the whole hand not just one card, even though it is one card at a time
+      score = 0, //keeps track of score, essentiall value
+      cardVal = 0, //card value
+      aces = 0; //how many aces in hand to determine its value
+      for (var i=0; i < this.hand.length; i++) {
+        var value = this.hand[i].value;
+         if (value <= 10) { //if value is 11 then ace is 1
+                 aces += 1;
+          }
+          score += cardVal; //
+        }
+          //Checks to see if Aces should be 1 or 11 (DM)
+          while (score > 21 && aces > 0){ //while # is bw 21 and 0
+              score -= 11; //
+              aces -=1;
+          }
+          return score;
+        },
+
+    hitMe: function() {
+      while (this.handValue() < 17) {
+        var hitCard = deck.cards.pop(); //
+        this.hand.push(hitCard);
+        console.log(this.hand);
+      }
     },
+
+    deal: function() { //dealer starts with one card
+      var hitCard = deck.cards.pop(); //.pop gives dealer last card object from deck
+      this.hand.push(hitCard); //grabs dealer card and sends it to hand array
+      console.log(this.hand); //dealer has another card in his hand
+    },
+
+    bust: function() { //dealer bust method
+      if (this.handValue() > 21 {
+        return true;
+      },
+      return false;
+    },
+
+    reset: function() { //dealer reset method
+      this.hand.length = 0;
+      document.getElementById('showDealerHand').innerHTML = '';
+
+    },
+
+    showHand: function(){ // displays dealers hand
+      document.getElementById('showDealerHand').innerHTML = this.handValue();
+    },
+
+    start: function() {
+      var timer = this;
+      this.dealerTimer = setInterval(function(){
+        self.showHand();
+      }, 6000);
+    }
+
+  };
+
+///////////////////////////////////////////////////////////////////////////////
+
+//bank object
+
+var bank = {
+  bet: function() { //method creates bank to reflect bets
+    var betAmt = document.getElementById('betAmt').value; // betAmt grabs value of input box to make bet
+    var newBank = document.getElementById('money').innerHTML; //grabs newbank
+    document.getElementById('money').innerHTML = newBank - betAmt;
+  },
+
+  toWin: function() { //returns string with input box value
+    var newBet = parseInt(document.getElementById('betAmt').value); //coverts strings back to numbers
+    var newerBank = parseInt(document.getElementById('money').innerHTML); //grabs newerbanks innerHTML
+    document.getElementById('money').innerHTML = newerBank + newBet + 2); ///or multiply here, answer not coming out properly
+  },
+
+  pushBet: function() { //method where bank reflects a push through bet button after player makes a bet
+    var newerBet = parseInt(document.getElementById('money').value); //defining variable to innerHTML
+    var newestBank = parseInt(document.getElementById('money').innerHTML);//defining variable to innerHTML
+      document.getElementById('money').innerHTML = newerBet + newestBank; //getting innterHTML to reflect newerBet+newestBank as outcome
+  },
+
+clearInputBox: function() { //method clears the input box where bets are made
+  var bankBox = document.getElementById('money'); //clears money for next game/hand to be played
+  bankBox.value = ''; //input box in bank
+}
+
+
+
+};
+
 
   // //returns array with a list of the names (suits/faces/values) of the cards in the players hand
   // this.nameHand = function() {
@@ -151,9 +314,7 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
   //   return arrayOut.join('');
   // };
 
-};
-
-});
+}); //end window onload
 
 
 
