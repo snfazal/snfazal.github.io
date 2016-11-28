@@ -1,3 +1,32 @@
-body {
-  background: pink;
+div {
+  text-align: center;
+}
+
+#gameBoard { //button
+  position: relative;
+  height: 500px;
+  width: 500px;
+  background-color: pink;
+  border: 3 px ivory;
+}
+/* below are buttons */
+
+#deal {
+  text-align: center;
+  color: pink;
+}
+
+#hitMe {
+  text-align: center;
+  color: pink;
+}
+
+#stand {
+  text-align: center;
+  color: pink;
+}
+
+#reset {
+  text-align: center;
+  color: pink;
 }
