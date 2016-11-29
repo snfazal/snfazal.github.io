@@ -22,15 +22,15 @@ $(function(){ //window.onload, loads functionality within the window
         player.hitMe(); //event handler: player hits
         player.showHand(); //method displays players hand
         if (player.checkBust()) {
-          alert (' Busted! ');
-
-          player.reset();
-          dealer.reset();
-
+          alert (' Busted! '); //alert you busted
+          player.reset(); //reset player
+          dealer.reset(); //reset dealer
           bank.clearInputBox(); //method to clear bet input box
           document.getElementById('bet').style.visibility='visible'; //makes bet button visible to functiontional on gameboard
           dealer.deal(); //dealer deals out a card to play hand
-        }
+          // }, 4000);
+
+
 
     $('#stay').on('click', function(){ //adds event listener onto stay button
         dealer.hitMe(); //dealer hits
@@ -52,6 +52,8 @@ $(function(){ //window.onload, loads functionality within the window
           bank.clearInputBox(); //method clears bet box
           document.getElementById('bet').style.visibility='visible' //bet box appears again
           dealer.deal(); //dealer deals out one card
+          // }, 4000);
+
         } else if (player.handValue() > dealer.handValue()) { //players hand has more value than dealer
           dealer.showHand(); //bank reflects player winning
           bank.toWin(); //bank enacts player winning
@@ -60,7 +62,9 @@ $(function(){ //window.onload, loads functionality within the window
           dealer.reset(); //dealer back to zero
           bank.ClearInputBox(); //clear bet box
           document.getElementById('bet').style.visibility='visible' //make it show up
-          dealer.deal(); //dealer dealt card
+          dealer.deal();//dealer dealt card
+        // }, 4000); //set timer for every 4 seconds for click function
+
         } else if (player.handValue() < dealer.handValue()) { // player gets less than the dealer
           dealer.showHand(); //banks sees a winner
           alert(' Dealer has more than you, so you lose '); //alert
@@ -69,14 +73,19 @@ $(function(){ //window.onload, loads functionality within the window
           bank.clearInputBox();//wiped clean
           document.getElementById('bet').style.visibility='visible'
           dealer.deal(); //cards dealt by dealer who is showing one cardddd
+          // }, 4000); //set timer for click function
 
-        }
+      } //
+
+    })
+
+  // })
 
 
-      })
 
 
-    }) //end window.onload
+
+
 
     // })//
 
@@ -129,19 +138,19 @@ $(function(){ //window.onload, loads functionality within the window
      return this.deck;
    }, //end makeDeck.shuffle
 
- };//end of deck object
+ };//end of constructor
 
    makeItWork = function() {
      deck.makeValueCards();
      deck.makeFaceCards();
      deck.shuffle();
-     }
+   }
 
 
  deck.makeItWork();
 
 
-/* Without Blaine the functionality below wouldn't work, I would be lost and out of WDI and my life would simply be over. His exact words were "...when you say reorder can you clarify that alil, and you dont have to put this. in front of the methods, but they can go inside the methods like this.hitMe would just be hitMe: and this. would go in front of cards like this.cards.length. this refers to the player object. your code looks though ! I'll keep checking it out to see if i can find anything..."
+/* Without Blaine the functionality below wouldn't work, I would be lost and out of WDI and my life would simply be over. His exact words were "...you dont have to put this. in front of the methods, but they can go inside the methods like this.hitMe would just be hitMe: and this. would go in front of cards like this.cards.length. this refers to the player object. your code looks good though !."
 
 As you can see, the below code, looks cleaner, it functions, I understand it(nothing fancy like before) and IT WORKS! Thank Blaine! */
 
@@ -153,8 +162,8 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
        cardVal = 0, //stores value of cards in hand
        aces = 0; //stores number of aces in the hand
        for (i=0; i < this.hand.length; i++) { //handtotal.hand through the array
-         var value = this.hand[i].value; //generates value of above
-         if (value <= 10) { //if value is 11 then ace is 1
+         var value = this.hand[i].getValue(); //generates value of above
+         if (value <= 10) { //if value is 11 or higher then ace is 1
              aces += 1;
       }
       score += cardVal; //
@@ -197,15 +206,15 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
 
 //dealer objects
 
-    var dealer = function() {
-      hand: [],
+    var dealer = {
+     hand: [],
 
     handValue: function() { //renamed to this, because its showing the value of the whole hand not just one card, even though it is one card at a time
       score = 0, //keeps track of score, essentiall value
       cardVal = 0, //card value
       aces = 0; //how many aces in hand to determine its value
       for (var i=0; i < this.hand.length; i++) {
-        var value = this.hand[i].value;
+        var value = this.hand[i].getValue();
          if (value <= 10) { //if value is 11 then ace is 1
                  aces += 1;
           }
@@ -234,9 +243,9 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
     },
 
     bust: function() { //dealer bust method
-      if (this.handValue() > 21 {
+      if (this.handValue() > 21) {
         return true;
-      },
+      }
       return false;
     },
 
@@ -270,21 +279,30 @@ var bank = {
     document.getElementById('money').innerHTML = newBank - betAmt;
   },
 
-  toWin: function() { //returns string with input box value
-    var newBet = parseInt(document.getElementById('betAmt').value); //coverts strings back to numbers
-    var newerBank = parseInt(document.getElementById('money').innerHTML); //grabs newerbanks innerHTML
-    document.getElementById('money').innerHTML = newerBank + newBet + 2); ///or multiply here, answer not coming out properly
-  },
-
   pushBet: function() { //method where bank reflects a push through bet button after player makes a bet
     var newerBet = parseInt(document.getElementById('money').value); //defining variable to innerHTML
     var newestBank = parseInt(document.getElementById('money').innerHTML);//defining variable to innerHTML
       document.getElementById('money').innerHTML = newerBet + newestBank; //getting innterHTML to reflect newerBet+newestBank as outcome
   },
 
-clearInputBox: function() { //method clears the input box where bets are made
-  var bankBox = document.getElementById('money'); //clears money for next game/hand to be played
-  bankBox.value = ''; //input box in bank
-   }
+  toWin: function() { //returns string with input box value
+    var newBet = parseInt(document.getElementById('money').value); //coverts strings back to numbers
+    var newerBank = parseInt(document.getElementById('money').innerHTML); //grabs newerbanks innerHTML
+    document.getElementById('money').innerHTML = newerBank + newBet * 2; ///or multiply here, answer not coming out properly
+  },
 
-};
+
+  clearInputBox: function() { //method clears the input box where bets are made
+    var bankBox = document.getElementById('money'); //clears money for next game/hand to be played
+    bankBox.value = ''; //input box in bank
+  }
+
+}
+
+});
+
+
+
+
+
+     //end window.onload
