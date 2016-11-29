@@ -18,6 +18,8 @@ $(function(){ //window.onload, loads functionality within the window
       bank.bet(); //bank enacts bet button visually
       document.getElementById('bet').style.visibility='hidden'; //no longer can bet button be seen muwahahaha
 
+
+
     $('#hitMe').on('click', function(){ //adds eventlistener to hit buttons
         player.hitMe(); //event handler: player hits
         player.showHand(); //method displays players hand
@@ -28,9 +30,7 @@ $(function(){ //window.onload, loads functionality within the window
           bank.clearInputBox(); //method to clear bet input box
           document.getElementById('bet').style.visibility='visible'; //makes bet button visible to functiontional on gameboard
           dealer.deal(); //dealer deals out a card to play hand
-          // }, 4000);
-
-
+        }, 4000);
 
     $('#stay').on('click', function(){ //adds event listener onto stay button
         dealer.hitMe(); //dealer hits
@@ -52,8 +52,7 @@ $(function(){ //window.onload, loads functionality within the window
           bank.clearInputBox(); //method clears bet box
           document.getElementById('bet').style.visibility='visible' //bet box appears again
           dealer.deal(); //dealer deals out one card
-          // }, 4000);
-
+        }, 4000); //timer every 4 seconds
         } else if (player.handValue() > dealer.handValue()) { //players hand has more value than dealer
           dealer.showHand(); //bank reflects player winning
           bank.toWin(); //bank enacts player winning
@@ -63,9 +62,8 @@ $(function(){ //window.onload, loads functionality within the window
           bank.ClearInputBox(); //clear bet box
           document.getElementById('bet').style.visibility='visible' //make it show up
           dealer.deal();//dealer dealt card
-        // }, 4000); //set timer for every 4 seconds for click function
-
-        } else if (player.handValue() < dealer.handValue()) { // player gets less than the dealer
+          }, 4000); //set timer for every 4 seconds for click function
+        } else if (player.handValue() < dealer.handValue()) { //    player gets less than the dealer
           dealer.showHand(); //banks sees a winner
           alert(' Dealer has more than you, so you lose '); //alert
           player.reset(); //player zero
@@ -73,19 +71,9 @@ $(function(){ //window.onload, loads functionality within the window
           bank.clearInputBox();//wiped clean
           document.getElementById('bet').style.visibility='visible'
           dealer.deal(); //cards dealt by dealer who is showing one cardddd
-          // }, 4000); //set timer for click function
+          }, 4000); //set timer for click function
 
-      } //
-
-    })
-
-  // })
-
-
-
-
-
-
+      }); //
 
     // })//
 
@@ -93,27 +81,27 @@ $(function(){ //window.onload, loads functionality within the window
   var Card = function(suit, value) { //constructor function that creates cards one at a time
     this.suit = suit; //parameter suit (out of four )
     this.value = value; //parameter value
-  }; //end constructor
+  }; //end
 
 
 //////////////////////////////////////////////////////////////////
 
   //deck = object within container
-  var Deck = function() {
+  var Deck = function(){
         this.deck = [];
    //method to make the deck
    var makeDeck =  { //decks made bc of declared objects
         cards: [], //1-52 cards
         cardSuits: ['hearts', 'spades', 'diamonds', 'clubs'], //card suits
-        faces: ['Jack', 'Queen', 'King'], //face cards
-        cardValues: ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10], //card values
+        faces: ['Jack', 'Queen', 'King', 'Ace'], //face cards
+        cardValues: [2, 3, 4, 5, 6, 7, 8, 9, 10]; //card values
         // aceRankValue: ['Ace'], //ace identifies with ace only
 
    //for loop applies suits/ranks to each card by makeDeck and then pushes it through Deck array
    makeValueCards: function() {
      for (var i = 0; i < this.cardSuits.length; i++) { //gets the suit
       for (var j = 0; j < this.cardValues.length; j++) {//gets cards value
-        var eachCard = new Card(this.cardSuits[i], this.cardValues[j]); //cardSuits+cardValues create nextCard, that is the new card
+        var eachCard = newCard(this.cardSuits[i], this.cardValues[j]); //cardSuits+cardValues create nextCard, that is the new card
         this.cards.push(eachCard); //newCard pushed through deck to player
       }
      }
@@ -122,7 +110,7 @@ $(function(){ //window.onload, loads functionality within the window
    makeFaceCards: function() { //function makes face cards
       for (var i = 0; i < this.cardSuits.length; i++) { //get next cards suit
         for (var j = 0; j < this.faces.length; j++) { //gets next cards face
-          this.cards.push(new Card(this.faces[i], 10, this.cardSuits[j])); //creates new card w/face, suit and value and pushes to makeDeck
+          this.cards.push(newCard(this.faces[i], 10, this.cardSuits[j])); //creates new card w/face, suit and value and pushes to makeDeck
         }
       }
     }, //end makeDeck.makeValueCards
@@ -144,7 +132,7 @@ $(function(){ //window.onload, loads functionality within the window
      deck.makeValueCards();
      deck.makeFaceCards();
      deck.shuffle();
-   }
+   };
 
 
  deck.makeItWork();
@@ -162,7 +150,7 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
        cardVal = 0, //stores value of cards in hand
        aces = 0; //stores number of aces in the hand
        for (i=0; i < this.hand.length; i++) { //handtotal.hand through the array
-         var value = this.hand[i].getValue(); //generates value of above
+         var value = this.hand[i].value(); //generates value of above
          if (value <= 10) { //if value is 11 or higher then ace is 1
              aces += 1;
       }
@@ -174,7 +162,7 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
           aces -=1;
       }
       return score; //returns aces value based on cards.score function
-      },
+    },
 
       //method to hit
     hitMe: function() {
@@ -186,7 +174,7 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
     bust: function() { //method checking for bust
       if (this.handValue() > 21) { //if handValue is over 21
         return true; //return true, the player bust
-      };
+      }
       return false; //if cardVal is under 21 return false
     },
 
@@ -214,16 +202,16 @@ As you can see, the below code, looks cleaner, it functions, I understand it(not
       cardVal = 0, //card value
       aces = 0; //how many aces in hand to determine its value
       for (var i=0; i < this.hand.length; i++) {
-        var value = this.hand[i].getValue();
+        var value = this.hand[i].value();
          if (value <= 10) { //if value is 11 then ace is 1
-                 aces += 1;
+                 aces += 1; //score +
           }
-          score += cardVal; //
+          score += cardVal; // value in hand + dealers value is sca
         }
           //Checks to see if Aces should be 1 or 11 (DM)
           while (score > 21 && aces > 0){ //while # is bw 21 and 0
-              score -= 11; //
-              aces -=1;
+              score -= 11; //score - 10
+              aces -=1; //score - 1
           }
           return score;
         },
@@ -295,14 +283,4 @@ var bank = {
   clearInputBox: function() { //method clears the input box where bets are made
     var bankBox = document.getElementById('money'); //clears money for next game/hand to be played
     bankBox.value = ''; //input box in bank
-  }
-
-}
-
-});
-
-
-
-
-
-     //end window.onload
+  };
