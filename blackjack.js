@@ -20,16 +20,14 @@ $(function(){ //window.onload, loads functionality within the window
     this.value = value; //parameter value
   }; //end
 
-    var makeDeck =  { //decks made bc of declared objects
-         cards: [], //1-52 cards
-         cardSuits: ['hearts', 'spades', 'diamonds', 'clubs'], //card suits
-         faces: ['Jack', 'Queen', 'King', 'Ace'], //face cards
-         cardValues: [2, 3, 4, 5, 6, 7, 8, 9, 10], //card values
+  var deck = function(){
+    this.deckstack = [];
 
-    }
-
-    var deck = function(){
-          var deckstack = [];
+    this.makeDeck = function(){ //decks made bc of declared objects
+        //  cards: [], //1-52 cards
+         var cardSuits = ['hearts', 'spades', 'diamonds', 'clubs']; //card suits
+        //  var faces = ['Jack', 'Queen', 'King', 'Ace'], //face cards
+         var cardValues = [2, 3, 4, 5, 6, 7, 8, 9, 10]; //card values
 
 
       //for loop applies suits/ranks to each card by makeDeck and then pushes it through Deck array
@@ -37,7 +35,7 @@ $(function(){ //window.onload, loads functionality within the window
         console.log(this);
         for (var i = 0; i < makeDeck.cardSuits.length; i++) { //gets the suit
          for (var j = 0; j < makeDeck.cardValues.length; j++) {//gets cards value
-           var eachCard = newCard(makeDeck.cardSuits[i], makeDeck.cardValues[j]); //cardSuits+cardValues create nextCard, that is the new card
+           var eachCard = new Card(makeDeck.cardSuits[i], makeDeck.cardValues[j]); //cardSuits+cardValues create nextCard, that is the new card
            makeDeck.cards.push(eachCard); //newCard pushed through deck to player
          }
         }
@@ -46,7 +44,7 @@ $(function(){ //window.onload, loads functionality within the window
       var makeFaceCards = function() { //function makes face cards
          for (var i = 0; i < makeDeck.cardSuits.length; i++) { //get next cards suit
            for (var j = 0; j < makeDeck.faces.length; j++) { //gets next cards face
-             this.cards.push(newCard(makeDeck.faces[i], 10, this.cardSuits[j])); //creates new card w/face, suit and value and pushes to makeDeck
+             this.cards.push(new Card(makeDeck.faces[i], 10, this.cardSuits[j])); //creates new card w/face, suit and value and pushes to makeDeck
            }
          }
        }; //end makeDeck.makeValueCards
@@ -64,17 +62,17 @@ $(function(){ //window.onload, loads functionality within the window
 
     }//end of constructor
 
-    makeValueCards();
-    makeFaceCards();
-    shuffle();
+    // makeValueCards();
+    // makeFaceCards();
+    // shuffle();
 
   };//closing deck object
 
-      // var makeItWork = function() {
-        // deck.makeValueCards();
-        // deck.makeDeck.makeFaceCards();
-        // deck.makeDeck.shuffle();
-      // };
+      var makeItWork = function() {
+        deck.makeValueCards();
+        deck.makeDeck.makeFaceCards();
+        deck.makeDeck.shuffle();
+      };
 
 
 
@@ -86,6 +84,7 @@ $(function(){ //window.onload, loads functionality within the window
       hand: [],
 
       handValue: function() {
+
         score = 0, //keeps score by value of cards
         cardVal = 0, //stores value of cards in hand
         aces = 0; //stores number of aces in the hand
@@ -221,6 +220,8 @@ $(function(){ //window.onload, loads functionality within the window
      }
 
    }; //closes bank object
+
+
 
     $('#bet').on('click', function() { //event listener on bet button
       bank.bet(); //bank enacts bet button visually
