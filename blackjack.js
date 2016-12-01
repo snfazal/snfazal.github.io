@@ -6,14 +6,6 @@ console.log('hello world, its blackjack');
 $(function(){ //window.onload, loads functionality within the window
 
 
-    // player.hitMe(); //cards dealt to player
-    // player.hitMe(); //two cards for player
-    //
-    // dealer.deal(); //dealer deals out one card for himself, game rules accordin to wikipedia
-    //
-    // player.showHand(); //displays player hand
-    // dealer.showHand(); //displays dealers hand
-
     //originally three parameters, but hand value can double as score
   var Card = function(suit, value) { //constructor function that creates cards one at a time
     this.suit = suit; //parameter suit (out of four )
