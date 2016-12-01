@@ -62,10 +62,6 @@ $(function(){ //window.onload, loads functionality within the window
 
     }//end of constructor
 
-    // makeValueCards();
-    // makeFaceCards();
-    // shuffle();
-
   };//closing deck object
 
       var makeItWork = function() {

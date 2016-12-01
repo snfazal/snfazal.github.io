@@ -1,4 +1,44 @@
 // console.log('hello world, its time play blackjack');
+
+
+Next Steps for Project One:
+
+1. Seperate deck function
+2. Player function take out actions and make them individual buttons
+    hitMe
+    bust
+    deal
+    reset
+3. Dealer function: take out actions and make them individual buttons with seperate functions
+    hitMe
+    bust
+    deal
+    reset
+4. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 //   $(function(){ //window.onload jQuery style
 //       // collecting all buttons
