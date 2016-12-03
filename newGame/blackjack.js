@@ -59,43 +59,81 @@ var deck = [
 
 //Empty arrays declared for dealer and player to dealt into the game. These should be global variables so there is no scoping issue in the future.
     //sets up dealer
+    var dealerHand = [];
     //sets of player
-
+    var playerHand = [];
 
 //Function used to deal one new card for the player from the deck, with an image appended to the card. #2
+  function dealCard(hand, element, nextCard) {
     //one random card chosen from the deck
+    var card = deck[Math.floor(Math.random() * deck.lenth)];
     //next card off deck is above
+    deck.pop(card);
     //card pushed on top of hand
-    //assign image url tag to variable
+    hand.push(card);
+    //assign image url tag to variable{
+  }
     //image url appends the element(image) onto next card waiting to be chosen
 
-
-//function to calculate points total in hand at play for player and dealer
+  //function to calculate points total in hand at play for player and dealer
     //define sum
+  function calculateValue(hand) {
+    var sum = 0;
     //for loop to count all cards through hand length
-        //cards in the hand are
-        //sumed with a method that will calc their value
-        //and return the sum of their hand
+    for (var i=0; i < hand.length; i++) {
+      //cards in the hand are
+      var card = hand[i];
+      //sumed with a method that will calc their value
+      sum = sum + card.value;
+    }
+    //and return the sum of their hand
+    return sum;
+}
+
 
 //Fuction checking if player or dealer BUST. #4
+function checkForBust() {
 //Depending on if the player or dealer busts, a winner will be declared #5
     //the points of the player will be calculated by the value of cards in the players hand
+    var playerScore = calculateValue(playerHand);
     // if value is greater than 21
+    if (playerScore > 21) {
       //the player will see a message that says he busted
+      $('#messages').text("Oh no you Busted! Your score is over 21");
       //return true;
+      return true;
+    }
+    return false;
 
     //dealers points will be calculated by the value of cards in his hand
+    var dealerScore = calculateValue(dealerHand);
     //if the value is greater than 21
+    if (dealerPoints > 21) {
       //player will see a message "Dealer busted you win"
+      // $('#messages').text("Yay! Dealer Busted, you win! ");
       //return true;
+      playerMoney+=1;
+      playerMonday+=1;
+      updateBank();
+      // $('#hitButton').prop('disabled', true);
+      // $('#standButton').prop('disabled', true);
+      return true;
       //return false if otherwise
+    }
+      return false;
+  }
+
 
 //global variable declaring amount of money player starts with in the bank
+var playerMoney = 500; //start bank
+
 
 //Constructor function with all click actions
+$(function() { //window.onload
     //
     //
 
 
 //Function that updates the players bankroll #1
   //grabs money and adds the players money to the bankroll and shows the updated value
+});
