@@ -28,6 +28,7 @@
         //and return the sum of their hand
 
 //Fuction checking if player or dealer BUST. #4
+//Depending on if the player or dealer busts, a winner will be declared #5
     //the points of the player will be calculated by the value of cards in the players hand
     // if value is greater than 21
       //the player will see a message that says he busted
@@ -39,4 +40,12 @@
       //return true;
       //return false if otherwise
 
-//
+//global variable declaring amount of money player starts with in the bank
+
+//Constructor function with all click actions
+    //
+    //
+
+
+//Function that updates the players bankroll #1
+  //grabs money and adds the players money to the bankroll and shows the updated value
