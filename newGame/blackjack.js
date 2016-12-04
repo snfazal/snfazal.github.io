@@ -90,6 +90,11 @@ var deck = [
     return sum;
 }
 
+//Function that updates the players bankroll #1
+function updatedBank() {
+  //grabs money and adds the players money to the bankroll and shows the updated value
+  $('#money').text('Bankroll: $' + playerMoney);
+}
 
   //Fuction checking if player or dealer BUST. #4
   function checkForBust() {
@@ -103,14 +108,14 @@ var deck = [
       //player cannot hit if he busts
       $('#hitButton').prop('disabled', true);
       //player cannot stand if he busts
-      $('standButton').prop('disabled', true);
+      $('#standButton').prop('disabled', true);
       //return true
       return true;
     }
     //dealers points will be calculated by the value of cards in his hand
     var dealerScore = calculateValue(dealerHand);
     //if the value is greater than 21
-    if (dealerPoints > 21) {
+    if (dealerScore > 21) {
       //player will see a message "Dealer busted you win"
       $('#messages').text("Yay! Dealer Busted, you win! ");
       //subtract/add $10 to the players bank
@@ -129,6 +134,7 @@ var deck = [
       return false;
   }
 
+
 // console.log('#hitButton was clicked yahhhhh');
 // console.log(" #standButton was clicked");
 
@@ -138,18 +144,72 @@ var deck = [
 
   //Constructor function with all click actions
   $(function() { //window.onload
-    $('#dealButton').clic
-    //
+    //get bank up to date before beginning
+    updateBank();
+
+    //when deal button is click(ed) function
+    $('#dealButton').click(function(){
+      //deal a card to the players hand
+      dealCard(playerHand, '#playerHand');
+      //deal a card to the dealers hand
+      dealCard(dealerHand, '#dealerHand');
+      //check to see if dealer/player bust
+      checkForBust();
+      //take $10 as the players bet at this time
+      playerMoney -= 10;
+      //update the bank to reflect min bet value
+      updateBank();
+    }); //end click function
+
+    //when hitButton is clicked
+    $('#hitButton').click(function(){
+      //deal a card to the players hand
+      dealCard(playerHand, '#playerHand');
+
+      checkForBust();
+    });
+
+    $('#standButton').click(function(){
+      var dealerScore = calculateValue(dealerHand);
+      while (dealerPoints < 17) {
+        dealCard(dealerHand, '#dealerHand');
+        dealerPoints = calculateValue(dealerHand);
+      }
+      if (checkForBust() === false) {
+        var playerScore = calculateValue(playerHand);
+        dealerScore = calculateValue(dealerHand);
+        if (playerScore > dealerScore) {
+          $('#messages').text('You beat the dealer, so you win! ');
+          playerMoney +=10;
+          playerMonday +=10;
+          updateBank();
+          $('#hitButton').prop('disabled', true);
+          $('#standButton').prop('disabled', true);
+        } else if (playerScore === dealerScore) {
+          $('messages').text('aww man! you tied the dealer ');
+          updateBank();
+          $('#hitButton').prop('disabled', true);
+          $('#standButton').prop('disabled', true);
+        } else {
+          $('#messages').text('You Lost!');
+          $('#hitButton').prop('disabled', true);
+          $('#standButton').prop('disabled', true);
+          }
+        }
+      });
+
+    });
 
 
 
 
 
 
-  });
 
-  //Function that updates the players bankroll #1
-  function updatedBank() {
-    //grabs money and adds the players money to the bankroll and shows the updated value
-    $('#money').text('Bankroll: $' + playerMoney);
-  }
+  // });
+
+  // //Function that updates the players bankroll #1
+  // function updatedBank() {
+  //   //grabs money and adds the players money to the bankroll and shows the updated value
+  //   $('#money').text('Bankroll: $' + playerMoney);
+  // }
