@@ -85,10 +85,12 @@ function resetGame() {
     deck.pop(card);
     //card pushed on top of hand
     hand.push(card);
+    $nextCard = $('<div>'); 
     //assign image url tag to variable{
-  }
+    $url = '<img src="images/'+ card.name + '.png"/>';
     //image url appends the element(image) onto next card waiting to be chosen
 
+  }
   //function to calculate points total in hand at play for player and dealer
     //define sum
   function calculateValue(hand) {

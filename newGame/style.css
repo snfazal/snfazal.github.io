@@ -5,7 +5,7 @@ body {
 h1{
   text-align: center;
   font-family: Veranda;
-  color: white;
+  color: lavender;
 }
 
 #deck-container {
@@ -13,6 +13,10 @@ h1{
   position: relative;
   height: 500px;
   width: 500px;
-  background-color: pink;
+  background-color: white;
   border: 3 px ivory;
+}
+img {
+  height: 200px;
+  width: 175px;
 }
