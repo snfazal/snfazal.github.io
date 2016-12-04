@@ -24,7 +24,7 @@ var deck = [
   {name: 'eightHearts', value: 8, suit: 'hearts'},
   {name: 'nineHearts', value: 9, suit: 'hearts'},
   {name: 'tenHearts', value: 10, suit: 'hearts'},
-  {name: 'jackOfHearts', value: 10, suit: 'hearts' },
+  {name: 'jackOfHearts', value: 10, suit: 'hearts'},
   {name: 'queenOfHearts', value: 10, suit: 'hearts'},
   {name: 'kingOfHearts', value: 10, suit: 'hearts'},
   {name: 'aceOfhearts', value: 11, suit: 'hearts'},
@@ -54,7 +54,7 @@ var deck = [
   {name: 'queenOfClubs', value: 10, suit: 'clubs'},
   {name: 'kingOfClubs', value: 10, suit: 'clubs'},
   {name: 'aceOfClubs', value: 11, suit: 'clubs'},
-]
+];
 
 
 //Empty arrays declared for dealer and player to dealt into the game. These should be global variables so there is no scoping issue in the future.
@@ -165,40 +165,64 @@ function updateBank() {
     $('#hitButton').click(function(){
       //deal a card to the players hand
       dealCard(playerHand, '#playerHand');
-
+      //check to see if player or dealer bust
       checkForBust();
-    });
+    }); //end click function
 
+    //when standButton is clicked
     $('#standButton').click(function(){
+      //the dealers score is the calculated value of the cards in his hand
       var dealerScore = calculateValue(dealerHand);
+      //if the dealer's score is less than 17
       while (dealerScore < 17) {
+        //the dealer will be dealt another card
         dealCard(dealerHand, '#dealerHand');
+        //the dealers score is the calculated value of the cards in his hand
         dealerScore = calculateValue(dealerHand);
-      }
-      if (checkForBust() === false) {
-        var playerScore = calculateValue(playerHand);
-        dealerScore = calculateValue(dealerHand);
-        if (playerScore > dealerScore) {
-          $('#messages').text('You beat the dealer, so you win! ');
-          playerMoney +=10;
-          playerMonday +=10;
-          updateBank();
-          $('#hitButton').prop('disabled', true);
-          $('#standButton').prop('disabled', true);
-        } else if (playerScore === dealerScore) {
-          $('messages').text('aww man! you tied the dealer ');
-          updateBank();
-          $('#hitButton').prop('disabled', true);
-          $('#standButton').prop('disabled', true);
-        } else {
-          $('#messages').text('You Lost!');
-          $('#hitButton').prop('disabled', true);
-          $('#standButton').prop('disabled', true);
-          }
-        }
-      });
+      } //end click function
 
-    });
+      //if the player does not bust
+      if (checkForBust() === false) {
+        //players score will be the calculated value of the cards in his hand
+        var playerScore = calculateValue(playerHand);
+        //dealers score will be the calculated value of the cards in his hand
+        dealerScore = calculateValue(dealerHand);
+        //if the players score is less than the dealers score
+        if (playerScore > dealerScore) {
+          //message function shows text to player that he won
+          $('#messages').text('You beat the dealer, so you win! ');
+          //player gets $10
+          playerMoney +=10;
+          playerMoney +=10;
+          //players money is updated in the bank
+          updateBank();
+          //player can no longer hit for more cards
+          $('#hitButton').prop('disabled', true);
+          //player can no longer use stand button
+          $('#standButton').prop('disabled', true);
+          //or if there is a tie
+        } else if (playerScore === dealerScore) {
+          //a message will tell the player of a tie
+          $('#messages').text('aww man! you tied the dealer ');
+          //bank is updated to reflect tie outcome
+          updateBank();
+          //player can no longer click hit button
+          $('#hitButton').prop('disabled', true);
+          //player can no longer click hit button
+          $('#standButton').prop('disabled', true);
+          //if neither than
+        } else {
+          //a message will tell the player you have lost
+          $('#messages').text('You Lost!');
+          //the player will not longer be able to hit
+          $('#hitButton').prop('disabled', true);
+          //player will not longer be able to stand
+          $('#standButton').prop('disabled', true);
+          } //end else statement
+        } //end if/else statement
+      }); //end if statement that checks for a bust
+
+    }); //end window.onload
 
 
 
