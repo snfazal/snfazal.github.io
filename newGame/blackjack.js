@@ -56,6 +56,20 @@ var deck = [
   {name: 'aceOfClubs', value: 11, suit: 'clubs'},
 ];
 
+var fullDeck = deck;
+
+//function to reset entire game via deal button
+function resetGame() {
+  fullDeck();
+  dealerHand = [];
+  playerHand = [];
+  $('#playerScore').text("");
+  $('#dealerScore').text("");
+  $('#messages').text("");
+  $('#playerHand').html("");
+  // $('')
+
+}
 
 //Empty arrays declared for dealer and player to dealt into the game. These should be global variables so there is no scoping issue in the future.
     //sets up dealer
