@@ -99,30 +99,38 @@ var deck = [
     // if value is greater than 21
     if (playerScore > 21) {
       //the player will see a message that says he busted
-      $('#messages').text("Oh no you Busted! Your score is over 21");
-      //return true;
+      $('#messages').text("Bust! Your score is over 21, you lose. ");
+      //player cannot hit if he busts
+      $('#hitButton').prop('disabled', true);
+      //player cannot stand if he busts
+      $('standButton').prop('disabled', true);
+      //return true
       return true;
     }
-    return false;
-
     //dealers points will be calculated by the value of cards in his hand
     var dealerScore = calculateValue(dealerHand);
     //if the value is greater than 21
     if (dealerPoints > 21) {
       //player will see a message "Dealer busted you win"
-      // $('#messages').text("Yay! Dealer Busted, you win! ");
-      //return true;
-      playerMoney+=1;
-      playerMonday+=1;
+      $('#messages').text("Yay! Dealer Busted, you win! ");
+      //subtract/add $10 to the players bank
+      playerMoney+=10;
+      playerMonday+=10;
+      //update bank to reflect loss
       updateBank();
-      // $('#hitButton').prop('disabled', true);
-      // $('#standButton').prop('disabled', true);
+      //player cannot hit if he wins
+      $('#hitButton').prop('disabled', true);
+      //player cannot stand if he wins
+      $('#standButton').prop('disabled', true);
+
       return true;
       //return false if otherwise
     }
       return false;
   }
 
+// console.log('#hitButton was clicked yahhhhh');
+// console.log(" #standButton was clicked");
 
   //global variable declaring amount of money player starts with in the bank
   var playerMoney = 500; //start bank
