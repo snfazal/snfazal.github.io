@@ -66,7 +66,7 @@ var deck = [
 //Function used to deal one new card for the player from the deck, with an image appended to the card. #2
   function dealCard(hand, element, nextCard) {
     //one random card chosen from the deck
-    var card = deck[Math.floor(Math.random() * deck.lenth)];
+    var card = deck[Math.floor(Math.random() * deck.length)];
     //next card off deck is above
     deck.pop(card);
     //card pushed on top of hand
@@ -91,7 +91,7 @@ var deck = [
 }
 
 //Function that updates the players bankroll #1
-function updatedBank() {
+function updateBank() {
   //grabs money and adds the players money to the bankroll and shows the updated value
   $('#money').text('Bankroll: $' + playerMoney);
 }
@@ -120,7 +120,7 @@ function updatedBank() {
       $('#messages').text("Yay! Dealer Busted, you win! ");
       //subtract/add $10 to the players bank
       playerMoney+=10;
-      playerMonday+=10;
+      playerMoney+=10;
       //update bank to reflect loss
       updateBank();
       //player cannot hit if he wins
@@ -171,9 +171,9 @@ function updatedBank() {
 
     $('#standButton').click(function(){
       var dealerScore = calculateValue(dealerHand);
-      while (dealerPoints < 17) {
+      while (dealerScore < 17) {
         dealCard(dealerHand, '#dealerHand');
-        dealerPoints = calculateValue(dealerHand);
+        dealerScore = calculateValue(dealerHand);
       }
       if (checkForBust() === false) {
         var playerScore = calculateValue(playerHand);
