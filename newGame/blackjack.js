@@ -1,95 +1,147 @@
 //Blackjack Game WDI Remote Matrix GA --Sophia Fazal
 
-//Deck object will all 52 cards inside of it
-var deck = [
-  {name: 'twoDiamonds', value: 2, suit: 'diamonds'},
-  {name: 'threeDiamonds', value: 3, suit: 'diamonds'},
-  {name: 'fourDiamons', value: 4, suit: 'diamonds'},
-  {name: 'fiveDiamonds', value: 5, suit: 'diamonds'},
-  {name: 'sixDiamonds', value: 6, suit: 'diamonds'},
-  {name: 'sevenDiamonds', value: 7, suit: 'diamonds'},
-  {name: 'eightDiamonds', value: 8, suit: 'diamonds'},
-  {name: 'nineDiamonds', value: 9, suit: 'diamonds'},
-  {name: 'tenDiamonds', value: 10, suit: 'diamonds'},
-  {name: 'jackOfDiamonds', value: 10, suit: 'diamonds' },
-  {name: 'queenOfDiamonds', value: 10, suit: 'diamonds'},
-  {name: 'kingOfDiamonds', value: 10, suit: 'diamonds'},
-  {name: 'aceOfDiamonds', value: 11, suit: 'diamonds'},
-  {name: 'twoHearts', value: 2, suit: 'hearts'},
-  {name: 'threeHearts', value: 3, suit: 'hearts'},
-  {name: 'fourHearts', value: 4, suit: 'hearts'},
-  {name: 'fiveHearts', value: 5, suit: 'hearts'},
-  {name: 'sixHearts', value: 6, suit: 'hearts'},
-  {name: 'sevenHearts', value: 7, suit: 'hearts'},
-  {name: 'eightHearts', value: 8, suit: 'hearts'},
-  {name: 'nineHearts', value: 9, suit: 'hearts'},
-  {name: 'tenHearts', value: 10, suit: 'hearts'},
-  {name: 'jackOfHearts', value: 10, suit: 'hearts'},
-  {name: 'queenOfHearts', value: 10, suit: 'hearts'},
-  {name: 'kingOfHearts', value: 10, suit: 'hearts'},
-  {name: 'aceOfhearts', value: 11, suit: 'hearts'},
-  {name: 'twoSpades', value: 2, suit: 'spades'},
-  {name: 'threeSpades', value: 3, suit: 'spades'},
-  {name: 'fourSpades', value: 4, suit: 'spades'},
-  {name: 'fiveSpades', value: 5, suit: 'spades'},
-  {name: 'sixSpades', value: 6, suit: 'spades'},
-  {name: 'sevenSpades', value: 7, suit: 'spades'},
-  {name: 'eightSpades', value: 8, suit: 'spades'},
-  {name: 'nineSpades', value: 9, suit: 'spades'},
-  {name: 'tenSpades', value: 10, suit: 'spades'},
-  {name: 'jackOfSpades', value: 10, suit: 'spades' },
-  {name: 'queenOfSpades', value: 10, suit: 'spades'},
-  {name: 'kingOfSpades', value: 10, suit: 'spades'},
-  {name: 'aceOfSpades', value: 10, suit: 'spades'},
-  {name: 'twoClubs', value: 2, suit: 'clubs'},
-  {name: 'threeClubs', value: 3, suit: 'clubs'},
-  {name: 'fourClubs', value: 4, suit: 'clubs'},
-  {name: 'fiveClubs', value: 5, suit: 'clubs'},
-  {name: 'sixClubs', value: 6, suit: 'clubs'},
-  {name: 'sevenClubs', value: 7, suit: 'clubs'},
-  {name: 'eightClubs', value: 8, suit: 'clubs'},
-  {name: 'nineClubs', value: 9, suit: 'clubs'},
-  {name: 'tenClubs', value: 10, suit: 'clubs'},
-  {name: 'jackOfClubs', value: 10, suit: 'clubs' },
-  {name: 'queenOfClubs', value: 10, suit: 'clubs'},
-  {name: 'kingOfClubs', value: 10, suit: 'clubs'},
-  {name: 'aceOfClubs', value: 11, suit: 'clubs'},
-];
-
-var fullDeck = deck;
-
-//function to reset entire game via deal button
-function resetGame() {
-  fullDeck();
-  dealerHand = [];
-  playerHand = [];
-  $('#playerScore').text("");
-  $('#dealerScore').text("");
-  $('#messages').text("");
-  $('#playerHand').html("");
-  // $('')
-
-}
 
 //Empty arrays declared for dealer and player to dealt into the game. These should be global variables so there is no scoping issue in the future.
     //sets up dealer
-    var dealerHand = [];
-    //sets of player
-    var playerHand = [];
+  //   var gameStats = {
+  //   discards: 1,
+  //   playerHand: [],
+  //   playerScore: 0,
+  //   dealerHand:[],
+  //   dealerScore: 0,
+  // };
+
+  var Card = function(names, values, suits) {
+    this.names = names;
+    this.values = values;
+    this.suits = suits;
+
+  };
+
+  var Deck = function() {
+    this.deck = [];
+    this.makeDeck = function(){
+
+//Deck object will all 52 cards inside of it
+    var cards = [
+      {name: 'twoDiamonds', value: 2, img: 'img/2_of_ diamonds.jpeg', suit: 'diamonds'},
+      {name: 'threeDiamonds', value: 3, img: 'img/3_of_diamonds.png', suit: 'diamonds'},
+      {name: 'fourDiamons', value: 4, img: 'img/4_of_diamonds.png', suit: 'diamonds'},
+      {name: 'fiveDiamonds', value: 5, img: 'img/5_of_diamonds.png', suit: 'diamonds'},
+      {name: 'sixDiamonds', value: 6, img: 'img/6_of_diamonds.png', suit: 'diamonds'},
+      {name: 'sevenDiamonds', value: 7, img: 'img/7_of_diamonds.png', suit: 'diamonds'},
+      {name: 'eightDiamonds', value: 8, img: 'img/8_of_diamonds.png', suit: 'diamonds'},
+      {name: 'nineDiamonds', value: 9, img: 'img/9_of_diamonds.png', suit: 'diamonds'},
+      {name: 'tenDiamonds', value: 10, img: 'img/10_of_diamonds.png', suit: 'diamonds'},
+      {name: 'jackOfDiamonds', value: 10, img: 'img/jack_of_diamonds.png', suit: 'diamonds' },
+      {name: 'queenOfDiamonds', value: 10, img: 'img/queen_of_diamonds.png', suit: 'diamonds'},
+      {name: 'kingOfDiamonds', value: 10, img: 'img/king_of_diamonds', suit: 'diamonds'},
+      {name: 'aceOfDiamonds', value: 11, img: 'img/ace_of_diamonds.png', suit: 'diamonds'},
+      {name: 'twoHearts', value: 2, img: 'img/2_of_hearts.png', suit: 'hearts'},
+      {name: 'threeHearts', value: 3, img: 'img/3_of_hearts.png', suit: 'hearts'},
+      {name: 'fourHearts', value: 4, img: 'img/4_of_hearts.png', suit: 'hearts'},
+      {name: 'fiveHearts', value: 5, img: 'img/5_of_hearts.png', suit: 'hearts'},
+      {name: 'sixHearts', value: 6, img: 'img/6_of_hearts.png', suit: 'hearts'},
+      {name: 'sevenHearts', value: 7, img: 'img/7_of_hearts.png', suit: 'hearts'},
+      {name: 'eightHearts', value: 8, img: 'img/8_of_hearts.png', suit: 'hearts'},
+      {name: 'nineHearts', value: 9, img: 'img/9_of_hearts.png', suit: 'hearts'},
+      {name: 'tenHearts', value: 10, img: 'img/10_of_hearts.png', suit: 'hearts'},
+      {name: 'jackOfHearts', value: 10, img: 'img/jack_of_hearts.png', suit: 'hearts'},
+      {name: 'queenOfHearts', value: 10, img: 'img/queen_of_hearts.png', suit: 'hearts'},
+      {name: 'kingOfHearts', value: 10, img: 'img/king_of_hearts.png', suit: 'hearts'},
+      {name: 'aceOfhearts', value: 11, img: 'img/ace_of_hearts.png', suit: 'hearts'},
+      {name: 'twoSpades', value: 2, img: 'img/2_of_spades.png', suit: 'spades'},
+      {name: 'threeSpades', value: 3, img: 'img/3_of_spades.png', suit: 'spades'},
+      {name: 'fourSpades', value: 4, img: 'img/4_of_spades.png', suit: 'spades'},
+      {name: 'fiveSpades', value: 5, img: 'img/5_of_spades.png', suit: 'spades'},
+      {name: 'sixSpades', value: 6, img: 'img/6_of_spades.png', suit: 'spades'},
+      {name: 'sevenSpades', value: 7, img: 'img/7_of_spades.png', suit: 'spades'},
+      {name: 'eightSpades', value: 8, img: 'img/8_of_spades.png', suit: 'spades'},
+      {name: 'nineSpades', value: 9, img: 'img/9_of_spades.png', suit: 'spades'},
+      {name: 'tenSpades', value: 10, img: 'img/10_of_spades.png', suit: 'spades'},
+      {name: 'jackOfSpades', value: 10, img: 'img/jack_of_spades.png', suit: 'spades' },
+      {name: 'queenOfSpades', value: 10, img: 'img/queen_of_spades.png', suit: 'spades'},
+      {name: 'kingOfSpades', value: 10, img: 'img/king_of_spades.png', suit: 'spades'},
+      {name: 'aceOfSpades', value: 10, img: 'img/ace_of_spades.png', suit: 'spades'},
+      {name: 'twoClubs', value: 2, img: 'img/2_of_clubs.png', suit: 'clubs'},
+      {name: 'threeClubs', value: 3, img: 'img/3_of_clubs.png', suit: 'clubs'},
+      {name: 'fourClubs', value: 4, img: 'img/4_of_clubs.png', suit: 'clubs'},
+      {name: 'fiveClubs', value: 5, img: 'img/5_of_clubs.png', suit: 'clubs'},
+      {name: 'sixClubs', value: 6, img: 'img/6_of_clubs.png', suit: 'clubs'},
+      {name: 'sevenClubs', value: 7, img: 'img/7_of_clubs.png', suit: 'clubs'},
+      {name: 'eightClubs', value: 8, img: 'img/8_of_clubs.png', suit: 'clubs'},
+      {name: 'nineClubs', value: 9, img: 'img/9_of_clubs.png', suit: 'clubs'},
+      {name: 'tenClubs', value: 10, img: 'img/10_of_clubs.png', suit: 'clubs'},
+      {name: 'jackOfClubs', value: 10, img: 'img/jack_of_clubs.png', suit: 'clubs' },
+      {name: 'queenOfClubs', value: 10, img: 'img/queen_of_clubs.png', suit: 'clubs'},
+      {name: 'kingOfClubs', value: 10, img: 'img/king_of_clubs.png', suit: 'clubs'},
+      {name: 'aceOfClubs', value: 11, img: 'img/ace_of_clubs.png', suit: 'clubs'},
+    ];
+
+    // newGame: function(){
+    //
+    //   //set everything to 0 to start
+    //   gameStats.playerHand = [];
+    //   gameStats.playerScore = 0;
+    //   gameStats.dealerHand = [];
+    //   gameStats.dealerScore = 0;
+    //
+    //   //shuffleCards and input to the deck
+    //   gameStats.cards = this.shuffleCards();
+    //
+    // },
+
+  // var Card = function(name, value, suit) {
+  //   this.name = name;
+  //   this.value = value;
+  //   this.suit = suit;
+  //
+  // }
+
+
+
+
+    for (var i = 0; i < cards.length; i++) {
+
+      this.deck.push(new Card(cards[i]));
+      }
+    }; //end makeDeck function
+
+  //Fisher yates shuffle
+  this.shuffle = function() {
+    for(i = this.deck.length - 1; i > 0; i--){
+      j = Math.floor(Math.random() * (i + 1));
+      temp = this.deck[i];
+      this.deck[i] = this.deck[j];
+      this.deck[j] = temp;
+    }
+    return this.deck;
+  } //end shuffle function
+
+};//end of deck constructor function
+
+var mainDeck = new Deck();
+mainDeck.makeDeck();
+mainDeck.shuffle();
+console.log(mainDeck.deck);
+
+
+//__________________________________________________________________________________________
 
 //Function used to deal one new card for the player from the deck, with an image appended to the card. #2
   function dealCard(hand, element, nextCard) {
     //one random card chosen from the deck
     var card = deck[Math.floor(Math.random() * deck.length)];
-    //next card off deck is above
+    //next card off deck above
     deck.pop(card);
     //card pushed on top of hand
     hand.push(card);
-    $nextCard = $('<div>'); 
-    //assign image url tag to variable{
-    $url = '<img src="images/'+ card.name + '.png"/>';
-    //image url appends the element(image) onto next card waiting to be chosen
 
+    $nextCard = $('<div>');
+    //assign image url tag to variable{
+    var url = '<img src="images/'+ card.img + '.png"/>';
+    //image url appends the element(image) onto next card waiting to be chosen
+    $(element).append(url);
   }
   //function to calculate points total in hand at play for player and dealer
     //define sum
@@ -106,6 +158,8 @@ function resetGame() {
     return sum;
 }
 
+
+//________________________________________________________________________
 //Function that updates the players bankroll #1
 function updateBank() {
   //grabs money and adds the players money to the bankroll and shows the updated value
@@ -240,16 +294,16 @@ function updateBank() {
 
     }); //end window.onload
 
-
-
-
-
-
-
-  // });
-
-  // //Function that updates the players bankroll #1
-  // function updatedBank() {
-  //   //grabs money and adds the players money to the bankroll and shows the updated value
-  //   $('#money').text('Bankroll: $' + playerMoney);
-  // }
+//
+//
+//
+//
+//
+//
+//   // });
+//
+//   // //Function that updates the players bankroll #1
+//   // function updatedBank() {
+//   //   //grabs money and adds the players money to the bankroll and shows the updated value
+//   //   $('#money').text('Bankroll: $' + playerMoney);
+//   // }

@@ -17,6 +17,12 @@ h1{
   border: 3 px ivory;
 }
 img {
-  height: 200px;
-  width: 175px;
+  float: left;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 100px;
+  height: 125px;
+  margin: 10px 5px 10px 5px;
+  box-shadow: 2.5px 2.5px 2px black;
 }
