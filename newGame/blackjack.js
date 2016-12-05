@@ -11,10 +11,10 @@
   //   dealerScore: 0,
   // };
 
-  var Card = function(names, values, suits) {
-    this.names = names;
-    this.values = values;
-    this.suits = suits;
+  var Card = function(name, value, suit) {
+    this.names = name;
+    this.values = value;
+    this.suits = suit;
 
   };
 
@@ -108,55 +108,55 @@
     }; //end makeDeck function
 
   //Fisher yates shuffle
-  this.shuffle = function() {
-    for(i = this.deck.length - 1; i > 0; i--){
-      j = Math.floor(Math.random() * (i + 1));
-      temp = this.deck[i];
-      this.deck[i] = this.deck[j];
-      this.deck[j] = temp;
-    }
-    return this.deck;
-  } //end shuffle function
+    this.shuffle = function() {
+      for(i = this.deck.length - 1; i > 0; i--){
+        j = Math.floor(Math.random() * (i + 1));
+        temp = this.deck[i];
+        this.deck[i] = this.deck[j];
+        this.deck[j] = temp;
+      }
+      return this.deck;
+    } //end shuffle function
 
-};//end of deck constructor function
+  };//end of deck constructor function
 
-var mainDeck = new Deck();
-mainDeck.makeDeck();
-mainDeck.shuffle();
-console.log(mainDeck.deck);
+  var mainDeck = new Deck();
+  mainDeck.makeDeck();
+  mainDeck.shuffle();
+  console.log(mainDeck.deck);
 
 
 //__________________________________________________________________________________________
 
 //Function used to deal one new card for the player from the deck, with an image appended to the card. #2
-  function dealCard(hand, element, nextCard) {
-    //one random card chosen from the deck
-    var eachCard = deck[Math.floor(Math.random() * deck.length)];
-    //next card off deck above
-    deck.pop(eachCard);
-    //card pushed on top of hand
-    hand.push(eachCard);
-
-    $nextCard = $('<div>');
-    //assign image url tag to variable{
-    var url = '<img src="images/'+ card.img + '.png"/>';
-    //image url appends the element(image) onto next card waiting to be chosen
-    $(element).append(url);
-  }
-  //function to calculate points total in hand at play for player and dealer
-    //define sum
-  function calculateValue(hand) {
-    var sum = 0;
-    //for loop to count all cards through hand length
-    for (var i=0; i < hand.length; i++) {
-      //cards in the hand are
-      var card = hand[i];
-      //sumed with a method that will calc their value
-      sum = sum + card.value;
-    }
-    //and return the sum of their hand
-    return sum;
-}
+//   function dealCard(hand, element, nextCard) {
+//     //one random card chosen from the deck
+//     var eachCard = deck[Math.floor(Math.random() * deck.length)];
+//     //next card off deck above
+//     deck.pop(eachCard);
+//     //card pushed on top of hand
+//     hand.push(eachCard);
+//
+//     $nextCard = $('<div>');
+//     //assign image url tag to variable{
+//     var url = '<img src="images/'+ card.img + '.png"/>';
+//     //image url appends the element(image) onto next card waiting to be chosen
+//     $(element).append(url);
+//   }
+//   //function to calculate points total in hand at play for player and dealer
+//     //define sum
+//   function calculateValue(hand) {
+//     var sum = 0;
+//     //for loop to count all cards through hand length
+//     for (var i=0; i < hand.length; i++) {
+//       //cards in the hand are
+//       var card = hand[i];
+//       //sumed with a method that will calc their value
+//       sum = sum + card.value;
+//     }
+//     //and return the sum of their hand
+//     return sum;
+// }
 
 
 //________________________________________________________________________
