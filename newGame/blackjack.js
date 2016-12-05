@@ -12,9 +12,9 @@
   // };
 
   var Card = function(name, value, suit) {
-    this.names = name;
-    this.values = value;
-    this.suits = suit;
+    this.name = name;
+    this.value = value;
+    this.suit = suit;
 
   };
 
@@ -128,19 +128,22 @@
 
 //__________________________________________________________________________________________
 
-//Function used to deal one new card for the player from the deck, with an image appended to the card. #2
-//   function dealCard(hand, element, nextCard) {
+
+
+
+// // Function used to deal one new card for the player from the deck, with an image appended to the card. #2
+//   function dealCard(hand) {
 //     //one random card chosen from the deck
-//     var eachCard = deck[Math.floor(Math.random() * deck.length)];
-//     //next card off deck above
-//     deck.pop(eachCard);
-//     //card pushed on top of hand
+//     var eachCard = this.deck.pop();
+//   //   //next card off deck above
+//     this.deck.unshift(eachCard);
+//   //   //card pushed on top of hand
 //     hand.push(eachCard);
-//
+//   //
 //     $nextCard = $('<div>');
-//     //assign image url tag to variable{
+//   //   //assign image url tag to variable{
 //     var url = '<img src="images/'+ card.img + '.png"/>';
-//     //image url appends the element(image) onto next card waiting to be chosen
+//   //   //image url appends the element(image) onto next card waiting to be chosen
 //     $(element).append(url);
 //   }
 //   //function to calculate points total in hand at play for player and dealer
@@ -159,6 +162,58 @@
 // }
 
 
+
+  var player = {
+
+        hand: [],
+
+    score: function() {
+
+      var sum = 0;
+
+      for(var i=0; i < this.hand.length; i++) {
+          var rank = this.hand[i].rank; //generates value of above
+          if (rank <= 11) { //if value is 11 or higher then ace is 1
+              aces += 1;
+          }
+          sum += cardRank; //
+      } //end for loop
+         //Checks to see if Aces should be 1 or 11 (DM)
+         while (sum > 21 && aces > 0){ //while # is bw 21 and 0
+             sum -= 10; //
+             aces -=1;
+         }
+         return sum; //returns aces value based on cards.score function
+       },
+
+         //method to hit
+       hitMe: function() {
+         var hit = mainDeck.cards.pop(); //.pop takes the last card from deck
+         this.hand.push(hit); //grabs the last cards and pushes it into hand array
+         console.log(this.hand);
+       },
+
+       bust: function() { //method checking for bust
+         if (this.score() > 21) { //if handValue is over 21
+           return true; //return true, the player bust
+         };
+         return false; //if cardVal is under 21 return false
+       },
+
+       reset: function() { //method to reset hand
+         this.hand.length = 0; // hand at play resets to 0
+         document.getElementById('playerScore').innerHTML = ''; //
+       },
+
+
+       showHand: function() { //method shows had value at play
+         document.getElementById('playerScore').innerHTML = this.score();
+       }
+
+     };
+
+
+
 //________________________________________________________________________
 //Function that updates the players bankroll #1
 function updateBank() {
@@ -170,7 +225,7 @@ function updateBank() {
   function checkForBust() {
   //Depending on if the player or dealer busts, a winner will be declared #5
     //the points of the player will be calculated by the value of cards in the players hand
-    var playerScore = calculateValue(playerHand);
+    var playerScore = score(playerHand);
     // if value is greater than 21
     if (playerScore > 21) {
       //the player will see a message that says he busted
