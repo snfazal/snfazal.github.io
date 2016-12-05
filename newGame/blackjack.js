@@ -2,7 +2,7 @@
   $(function() { //window.onload
 
   //grabbing bank
-  var $betAmt = $('bet-amt');
+  var $betAmt = $('betAmt');
   var $updateBank = $('update-bank');
 
   //__________________________________________________________________________
@@ -113,16 +113,10 @@
       var sum = 0;
 
       for(var i=0; i < this.hand.length; i++) {
-          var rank = this.hand[i].rank; //generates value of above
-          if (rank <= 11) { //if value is 11 or higher then ace is 1
-              aces += 1;
-          }
-          sum += rank; //
-      } //end for loop
-         //Checks to see if Aces should be 1 or 11 (DM)
-         while (sum > 21 && aces > 0){ //while # is bw 21 and 0
-             sum -= 11; //
-             aces -=1;
+          // var rank = this.hand[i].rank; //generates value of above
+          // if (rank <= 11)  //if value is 11 or higher then ace is 1
+              // aces += 1;
+          sum += this.hand[i].value;
          }
          return sum; //returns aces value based on cards.sum function
        },
@@ -136,22 +130,22 @@
 
        bust: function() { //method checking for bust
          if (this.score() > 21) { //if handValue is over 21
-           $('#messages').text("Bust! Your score is over 21, you lose. ");
-           $('#hitButton').hide();
+          //  $('#messages').text("Bust! Your score is over 21, you lose. ");
+          //  $('#hitBtn').hide();
            //player cannot stand if he busts
-           $('#standButton').hide();
+          //  $('#stayBtn').hide();
            return true; //return true, the player bust
          }
 
          return false; //if cardVal is under 21 return false
        },
 
-       reset: function() { //method to reset hand
-         this.hand.length = 0; // hand at play resets to 0
-         document.getElementById('playerScore').innerHTML = ''; //
-       },
-
-
+      //  reset: function() { //method to reset hand
+      //    this.hand.length = 0; // hand at play resets to 0
+      //    document.getElementById('playerScore').innerHTML = ''; //
+      //  },
+       //
+       //
        showHand: function() { //method shows had value at play
          document.getElementById('playerScore').innerHTML = this.value;
        }
@@ -166,23 +160,21 @@
           var sum = 0;
 
           for (var i=0; i < this.hand.length; i++) {
-            var rank = this.hand[i].rank();
-             if (rank <= 11) { //if value is 11 then ace is 1
-                 aces += 1; //score +
-             }
-            score += cardRank; // value in hand + dealers value is sca
-          } //end for loop
+            // var value = this.hand[i].value();
+            //  if (value <= 11) { //if value is 11 then ace is 1
+            //      aces += 1; //score +
+            sum += this.hand[i].value; // value in hand + dealers value is sca
+            } //end for loop
               //Checks to see if Aces should be 1 or 11 (DM)
-             while (sum > 21 && aces > 0){ //while # is bw 21 and 0
-                  sum -= 11; //score - 10
-                  aces -=1; //score - 1
-              }
-              return sum;
+            //  while (sum > 21 && aces > 0){ //while # is bw 21 and 0
+            //       sum -= 11; //score - 10
+            //       aces -=1; //score - 1
+            return sum;
             },
 
         hitMe: function() {
           while (this.score() < 17) {
-            var hit = mainDeck.cards.pop(); //
+            var hit = mainDeck.deck.pop(); //
             this.hand.push(hit);
             console.log(this.hand);
           }
@@ -196,21 +188,21 @@
 
         bust: function() { //dealer bust method
           if (this.score() > 21) {
-          $('#messages').text("Dealer Busts! You win. ");
-          $('#hitButton').hide();
-          //player cannot stand if he busts
-          $('#standButton').hide();
+          // $('#messages').text("Dealer Busts! You win. ");
+          // $('#hitBtn').hide();
+          // //player cannot stand if he busts
+          // $('#stayBtn').hide();
             return true;
-          }
+          };
           return false;
         },
 
-        reset: function() { //dealer reset method
-          this.hand.length = 0;
-          document.getElementById('dealerScore').innerHTML = '';
-
-        },
-
+        // reset: function() { //dealer reset method
+        //   this.hand.length = 0;
+        //   document.getElementById('dealerScore').innerHTML = '';
+        //
+        // },
+        //
         showHand: function(){ // displays dealers hand
           document.getElementById('dealerScore').innerHTML = this.value;
         }
@@ -223,23 +215,30 @@
 
     makeBet: function(){
 
-      $betAmt.html('Current bet: $ ').value;
-      $updateBank.parseInt$('update-bank').html;
+      var betAmt = document.getElementById('betAmt').value;
+      var update = document. getElementById('update-bank').innerHTML
+      document.getElementById('update-bank')= update - betAmt;
 
-      $('#money').text('Bankroll: $' + playerMoney);
+      // $('#money').text('Bankroll: $' + playerMoney);
     },
 
     win: function(){
-      $betAmt.parseInt('').value;
-      $updateBank.parseInt('update-bank').html;
-      $('update-bank').html = $updateBank + $betAmt * 2;
-      $('#money').text('Bankroll $ ' + playerMoney);
+      // $betAmt.parseInt('').value;
+      // $updateBank.parseInt('update-bank').html;
+      var betAmt = document.getElementById('betAmt').value;
+      var update = document. getElementById('update-bank').innerHTML
+      // $('update-bank').html = $updateBank + $betAmt * 2;
+      // $('#money').text('Bankroll $ ' + playerMoney);
+      document.getElementById('update-bank').innerHTML = update + betAmt * 2;
     },
 
     bet: function(){
-      $betAmt.parseInt('bet-amt').value;
-      $updateBank.parseInt('update-bank').html;
-      $('update-bank').html = $updateBank + $betAmt;
+      // $betAmt.parseInt('bet-amt').value;
+      // $updateBank.parseInt('update-bank').html;
+      // $('update-bank').html = $updateBank + $betAmt;
+      var betAmt = document.getElementById('betAmt').value;
+      var update = document. getElementById('update-bank').innerHTML
+      document.getElementById('update-bank').innerHTML = update + betAmt;
     },
   };
 
@@ -247,19 +246,19 @@
 // console.log(" #standButton was clicked");
 
   //global variable declaring amount of money player starts with in the bank
-  var playerMoney = 500; //start bank
+  // var playerMoney = 500; //start bank
 
 
     //get bank up to date before beginning
     // bank();
 
-    player.hitMe();
-    player.hitMe();
+    player.hitMe(); //dealing player cards
+    player.hitMe(); //dealing out player cards
 
-    dealer.deal();
+    dealer.deal(); //
 
-    player.showHand();
-    dealer.showHand();
+    // player.showHand();
+    // dealer.showHand();
 
     $('#betBtn').on('click', function(){
       bank.bet();
@@ -287,7 +286,7 @@
       //deal a card to the players hand
       player.hitMe();
       //check to see if player or dealer bust
-      player.showHand();
+      // player.showHand();
       // alert("You bust, so you lose ");
     }) //end click function
 
@@ -296,30 +295,32 @@
 
       dealer.hitMe();
       //the dealers score is the calculated value of the cards in his hand
-      var dealerScore = score(hand);
-      //if the dealer's score is less than 17
-      while (dealerScore < 17) {
-        //the dealer will be dealt another card
-        dealer.showHand();
-        //the dealers score is the calculated value of the cards in his hand
-        bank.win();
-
-        alert("you won! dealer busted ");
+      // var dealerScore = score(hand);
+      // //if the dealer's score is less than 17
+      // while (dealerScore < 17) {
+      //   //the dealer will be dealt another card
+      //   dealer.showHand();
+      //   //the dealers score is the calculated value of the cards in his hand
+      //   bank.win();
+      //
+      //   alert("you won! dealer busted ");
       //if the player does not bust
-    } if (bust() === false) {
+     if (dealer.bust()) {
         //players score will be the calculated value of the cards in his hand
-        var playerScore = score(hand);
+        // var playerScore = score(hand);
         //dealers score will be the calculated value of the cards in his hand
-        dealerScore = score(hand);
+        // var dealerScore = score(hand);
+        dealer.showHand();
         //if the players score is less than the dealers score
-        if (player.score() > dealer.score()) {
+        if (playerScore > dealerScore) {
           //message function shows text to player that he won
+          bank.win();
           $('#messages').text('You beat the dealer, so you win! ');
           //player gets $10
           playerMoney +=10;
           playerMoney +=10;
           //players money is updated in the bank
-          updateBank();
+          // bank.win();
           //player can no longer hit for more cards
           $('#hitBtn').hide();
           //player can no longer use stand button
@@ -329,7 +330,7 @@
           //a message will tell the player of a tie
           $('#messages').text('aww man! you tied the dealer ');
           //bank is updated to reflect tie outcome
-          updateBank();
+          bank.win();
           //player can no longer click hit button
           $('#hitBtn').hide();
           //player can no longer click hit button
