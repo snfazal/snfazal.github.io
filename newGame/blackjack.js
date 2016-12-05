@@ -131,11 +131,11 @@ console.log(mainDeck.deck);
 //Function used to deal one new card for the player from the deck, with an image appended to the card. #2
   function dealCard(hand, element, nextCard) {
     //one random card chosen from the deck
-    var card = deck[Math.floor(Math.random() * deck.length)];
+    var eachCard = deck[Math.floor(Math.random() * deck.length)];
     //next card off deck above
-    deck.pop(card);
+    deck.pop(eachCard);
     //card pushed on top of hand
-    hand.push(card);
+    hand.push(eachCard);
 
     $nextCard = $('<div>');
     //assign image url tag to variable{
