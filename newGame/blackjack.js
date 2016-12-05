@@ -1,15 +1,11 @@
 //Blackjack Game WDI Remote Matrix GA --Sophia Fazal
+  $(function() { //window.onload
 
+  //grabbing bank
+  var $betAmt = $('bet-amt');
+  var $updateBank = $('update-bank');
 
-//Empty arrays declared for dealer and player to dealt into the game. These should be global variables so there is no scoping issue in the future.
-    //sets up dealer
-  //   var gameStats = {
-  //   discards: 1,
-  //   playerHand: [],
-  //   playerScore: 0,
-  //   dealerHand:[],
-  //   dealerScore: 0,
-  // };
+  //__________________________________________________________________________
 
   var Card = function(name, value, suit) {
     this.name = name;
@@ -78,28 +74,6 @@
       {name: 'aceOfClubs', value: 11, img: 'img/ace_of_clubs.png', suit: 'clubs'},
     ];
 
-    // newGame: function(){
-    //
-    //   //set everything to 0 to start
-    //   gameStats.playerHand = [];
-    //   gameStats.playerScore = 0;
-    //   gameStats.dealerHand = [];
-    //   gameStats.dealerScore = 0;
-    //
-    //   //shuffleCards and input to the deck
-    //   gameStats.cards = this.shuffleCards();
-    //
-    // },
-
-  // var Card = function(name, value, suit) {
-  //   this.name = name;
-  //   this.value = value;
-  //   this.suit = suit;
-  //
-  // }
-
-
-
 
     for (var i = 0; i < cards.length; i++) {
 
@@ -125,43 +99,10 @@
   mainDeck.shuffle();
   console.log(mainDeck.deck);
 
+  // makeDeck.mainDeck();
+
 
 //__________________________________________________________________________________________
-
-
-
-
-// // Function used to deal one new card for the player from the deck, with an image appended to the card. #2
-//   function dealCard(hand) {
-//     //one random card chosen from the deck
-//     var eachCard = this.deck.pop();
-//   //   //next card off deck above
-//     this.deck.unshift(eachCard);
-//   //   //card pushed on top of hand
-//     hand.push(eachCard);
-//   //
-//     $nextCard = $('<div>');
-//   //   //assign image url tag to variable{
-//     var url = '<img src="images/'+ card.img + '.png"/>';
-//   //   //image url appends the element(image) onto next card waiting to be chosen
-//     $(element).append(url);
-//   }
-//   //function to calculate points total in hand at play for player and dealer
-//     //define sum
-//   function calculateValue(hand) {
-//     var sum = 0;
-//     //for loop to count all cards through hand length
-//     for (var i=0; i < hand.length; i++) {
-//       //cards in the hand are
-//       var card = hand[i];
-//       //sumed with a method that will calc their value
-//       sum = sum + card.value;
-//     }
-//     //and return the sum of their hand
-//     return sum;
-// }
-
-
 
   var player = {
 
@@ -176,7 +117,7 @@
           if (rank <= 11) { //if value is 11 or higher then ace is 1
               aces += 1;
           }
-          sum += cardRank; //
+          sum += rank; //
       } //end for loop
          //Checks to see if Aces should be 1 or 11 (DM)
          while (sum > 21 && aces > 0){ //while # is bw 21 and 0
@@ -188,15 +129,20 @@
 
          //method to hit
        hitMe: function() {
-         var hit = mainDeck.cards.pop(); //.pop takes the last card from deck
+         var hit = mainDeck.deck.pop(); //.pop takes the last card from deck
          this.hand.push(hit); //grabs the last cards and pushes it into hand array
          console.log(this.hand);
        },
 
        bust: function() { //method checking for bust
          if (this.score() > 21) { //if handValue is over 21
+           $('#messages').text("Bust! Your score is over 21, you lose. ");
+           $('#hitButton').hide();
+           //player cannot stand if he busts
+           $('#standButton').hide();
            return true; //return true, the player bust
-         };
+         }
+
          return false; //if cardVal is under 21 return false
        },
 
@@ -207,7 +153,7 @@
 
 
        showHand: function() { //method shows had value at play
-         document.getElementById('playerScore').innerHTML = this.score();
+         document.getElementById('playerScore').innerHTML = this.value;
        }
 
      };
@@ -243,13 +189,17 @@
         },
 
         deal: function() { //dealer starts with one card
-          var hit = mainDeck.cards.pop(); //.pop gives dealer last card object from deck
+          var hit = mainDeck.deck.pop(); //.pop gives dealer last card object from deck
           this.hand.push(hit); //grabs dealer card and sends it to hand array
           console.log(this.hand); //dealer has another card in his hand
         },
 
         bust: function() { //dealer bust method
           if (this.score() > 21) {
+          $('#messages').text("Dealer Busts! You win. ");
+          $('#hitButton').hide();
+          //player cannot stand if he busts
+          $('#standButton').hide();
             return true;
           }
           return false;
@@ -257,61 +207,41 @@
 
         reset: function() { //dealer reset method
           this.hand.length = 0;
-          document.getElementById('showDealerHand').innerHTML = '';
+          document.getElementById('dealerScore').innerHTML = '';
 
         },
 
         showHand: function(){ // displays dealers hand
-          document.getElementById('showDealerHand').innerHTML = this.score();
+          document.getElementById('dealerScore').innerHTML = this.value;
         }
 
         };
 
-//________________________________________________________________________
-//Function that updates the players bankroll #1
-function updateBank() {
-  //grabs money and adds the players money to the bankroll and shows the updated value
-  $('#money').text('Bankroll: $' + playerMoney);
-}
+//_______________________________BANK ROLL_______________________________________
 
-  //Fuction checking if player or dealer BUST. #4
-  function checkForBust() {
-  //Depending on if the player or dealer busts, a winner will be declared #5
-    //the points of the player will be calculated by the value of cards in the players hand
-    var playerScore = score(playerHand);
-    // if value is greater than 21
-    if (playerScore > 21) {
-      //the player will see a message that says he busted
-      $('#messages').text("Bust! Your score is over 21, you lose. ");
-      //player cannot hit if he busts
-      $('#hitButton').prop('disabled', true);
-      //player cannot stand if he busts
-      $('#standButton').prop('disabled', true);
-      //return true
-      return true;
-    }
-    //dealers points will be calculated by the value of cards in his hand
-    var dealerScore = calculateValue(dealerHand);
-    //if the value is greater than 21
-    if (dealerScore > 21) {
-      //player will see a message "Dealer busted you win"
-      $('#messages').text("Yay! Dealer Busted, you win! ");
-      //subtract/add $10 to the players bank
-      playerMoney+=10;
-      playerMoney+=10;
-      //update bank to reflect loss
-      updateBank();
-      //player cannot hit if he wins
-      $('#hitButton').prop('disabled', true);
-      //player cannot stand if he wins
-      $('#standButton').prop('disabled', true);
+  var bank = {
 
-      return true;
-      //return false if otherwise
-    }
-      return false;
-  }
+    makeBet: function(){
 
+      $betAmt.html('Current bet: $ ').value;
+      $updateBank.parseInt$('update-bank').html;
+
+      $('#money').text('Bankroll: $' + playerMoney);
+    },
+
+    win: function(){
+      $betAmt.parseInt('').value;
+      $updateBank.parseInt('update-bank').html;
+      $('update-bank').html = $updateBank + $betAmt * 2;
+      $('#money').text('Bankroll $ ' + playerMoney);
+    },
+
+    bet: function(){
+      $betAmt.parseInt('bet-amt').value;
+      $updateBank.parseInt('update-bank').html;
+      $('update-bank').html = $updateBank + $betAmt;
+    },
+  };
 
 // console.log('#hitButton was clicked yahhhhh');
 // console.log(" #standButton was clicked");
@@ -320,53 +250,69 @@ function updateBank() {
   var playerMoney = 500; //start bank
 
 
-  //Constructor function with all click actions
-  $(function() { //window.onload
     //get bank up to date before beginning
-    updateBank();
+    // bank();
+
+    player.hitMe();
+    player.hitMe();
+
+    dealer.deal();
+
+    player.showHand();
+    dealer.showHand();
+
+    $('#betBtn').on('click', function(){
+      bank.bet();
+      $betBtn.hide();
+    }) //
+
+    // $betBtn.hide();
 
     //when deal button is click(ed) function
-    $('#dealButton').click(function(){
-      //deal a card to the players hand
-      dealCard(playerHand, '#playerHand');
-      //deal a card to the dealers hand
-      dealCard(dealerHand, '#dealerHand');
-      //check to see if dealer/player bust
-      checkForBust();
-      //take $10 as the players bet at this time
-      playerMoney -= 10;
-      //update the bank to reflect min bet value
-      updateBank();
-    }); //end click function
+    // $('#dealBtn').on('click', function(){
+    //   //deal a card to the players hand
+    //   dealCard(playerHand, '#playerHand');
+    //   //deal a card to the dealers hand
+    //   dealCard(dealerHand, '#dealerHand');
+    //   //check to see if dealer/player bust
+    //   checkForBust();
+    //   //take $10 as the players bet at this time
+    //   playerMoney -= 10;
+    //   //update the bank to reflect min bet value
+    //   updateBank();
+    // }); //end click function
 
     //when hitButton is clicked
-    $('#hitButton').click(function(){
+    $('#hitBtn').on('click', function(){
       //deal a card to the players hand
-      dealCard(playerHand, '#playerHand');
+      player.hitMe();
       //check to see if player or dealer bust
-      checkForBust();
-    }); //end click function
+      player.showHand();
+      // alert("You bust, so you lose ");
+    }) //end click function
 
     //when standButton is clicked
-    $('#standButton').click(function(){
+    $('#stayBtn').on ('click', function(){
+
+      dealer.hitMe();
       //the dealers score is the calculated value of the cards in his hand
-      var dealerScore = calculateValue(dealerHand);
+      var dealerScore = score(hand);
       //if the dealer's score is less than 17
       while (dealerScore < 17) {
         //the dealer will be dealt another card
-        dealCard(dealerHand, '#dealerHand');
+        dealer.showHand();
         //the dealers score is the calculated value of the cards in his hand
-        dealerScore = calculateValue(dealerHand);
-      } //end click function
+        bank.win();
 
+        alert("you won! dealer busted ");
       //if the player does not bust
-      if (checkForBust() === false) {
+    } if (bust() === false) {
         //players score will be the calculated value of the cards in his hand
-        var playerScore = calculateValue(playerHand);
+        var playerScore = score(hand);
         //dealers score will be the calculated value of the cards in his hand
-        dealerScore = calculateValue(dealerHand);
+        dealerScore = score(hand);
         //if the players score is less than the dealers score
-        if (playerScore > dealerScore) {
+        if (player.score() > dealer.score()) {
           //message function shows text to player that he won
           $('#messages').text('You beat the dealer, so you win! ');
           //player gets $10
@@ -375,9 +321,9 @@ function updateBank() {
           //players money is updated in the bank
           updateBank();
           //player can no longer hit for more cards
-          $('#hitButton').prop('disabled', true);
+          $('#hitBtn').hide();
           //player can no longer use stand button
-          $('#standButton').prop('disabled', true);
+          $('#stayBtn').hide();
           //or if there is a tie
         } else if (playerScore === dealerScore) {
           //a message will tell the player of a tie
@@ -385,22 +331,94 @@ function updateBank() {
           //bank is updated to reflect tie outcome
           updateBank();
           //player can no longer click hit button
-          $('#hitButton').prop('disabled', true);
+          $('#hitBtn').hide();
           //player can no longer click hit button
-          $('#standButton').prop('disabled', true);
+          $('#stayBtn').hide();
           //if neither than
         } else {
           //a message will tell the player you have lost
           $('#messages').text('You Lost!');
           //the player will not longer be able to hit
-          $('#hitButton').prop('disabled', true);
+          $('#hitBtn').hide();
           //player will not longer be able to stand
-          $('#standButton').prop('disabled', true);
+          $('#stayBtn').hide();
           } //end else statement
         } //end if/else statement
-      }); //end if statement that checks for a bust
+      }); //click function
 
     }); //end window.onload
+
+
+
+
+//_____________________GRAVEYARD____________________________________________
+
+
+// // Function used to deal one new card for the player from the deck, with an image appended to the card. #2
+//   function dealCard(hand) {
+//     //one random card chosen from the deck
+//     var eachCard = this.deck.pop();
+//   //   //next card off deck above
+//     this.deck.unshift(eachCard);
+//   //   //card pushed on top of hand
+//     hand.push(eachCard);
+//   //
+//     $nextCard = $('<div>');
+//   //   //assign image url tag to variable{
+//     var url = '<img src="images/'+ card.img + '.png"/>';
+//   //   //image url appends the element(image) onto next card waiting to be chosen
+//     $(element).append(url);
+//   }
+//   //function to calculate points total in hand at play for player and dealer
+//     //define sum
+//   function calculateValue(hand) {
+//     var sum = 0;
+//     //for loop to count all cards through hand length
+//     for (var i=0; i < hand.length; i++) {
+//       //cards in the hand are
+//       var card = hand[i];
+//       //sumed with a method that will calc their value
+//       sum = sum + card.value;
+//     }
+//     //and return the sum of their hand
+//     return sum;
+// }
+
+
+
+
+
+//Empty arrays declared for dealer and player to dealt into the game. These should be global variables so there is no scoping issue in the future.
+    //sets up dealer
+  //   var gameStats = {
+  //   discards: 1,
+  //   playerHand: [],
+  //   playerScore: 0,
+  //   dealerHand:[],
+  //   dealerScore: 0,
+  // };
+
+
+
+    // newGame: function(){
+    //
+    //   //set everything to 0 to start
+    //   gameStats.playerHand = [];
+    //   gameStats.playerScore = 0;
+    //   gameStats.dealerHand = [];
+    //   gameStats.dealerScore = 0;
+    //
+    //   //shuffleCards and input to the deck
+    //   gameStats.cards = this.shuffleCards();
+    //
+    // },
+
+  // var Card = function(name, value, suit) {
+  //   this.name = name;
+  //   this.value = value;
+  //   this.suit = suit;
+  //
+  // }
 
 //
 //

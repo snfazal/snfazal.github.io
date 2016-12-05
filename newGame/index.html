@@ -9,7 +9,7 @@
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"></script>
         <!-- connects javascript -->
-    <script type="text/javascript" src='blackjack.js'></script>
+    <!-- <script type="text/javascript" src='blackjack.js'></script> -->
       <!-- connects stylesheet -->
     <link rel="stylesheet" href="style.css"/>
     <title>Play Some Blackjack!</title>
@@ -20,31 +20,39 @@
     <div id='deck-container'>
 
     <img id='divider' src="http://www.pokergamingproducts.com/images/D/gmod816.jpg" />
-
+    <br>
+    <div>
+      <p>Bank</p>
+    <span id='bankDisplay'>500</span>
+    </div>
+    <br>
 
     <div id="messages" class="text"></div>
     </div>
 
-    <div id="dealerHand" class="hand">
+    <div id="dealerScore" class="hand">
     </div>
 
-    <div id="playerHand" class="hand">
+    <div id="playerScore" class="hand">
     </div>
 
     <div id="buttons">
-      <button id="dealButton">deal</button>
-      <button id="hitButton">hit</button>
-      <button id="standButton">stand</button>
+      <button id="dealBtn">deal</button>
+      <button id="hitBtn">hit</button>
+      <button id="stayBtn">stand</button>
     </div>
 
-
+    <input type="text" id="betAmt"><button id="betAmt">bet</button></input>
 
 
 
 
 
   </div>
-
-
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src='blackjack.js'></script>
   </body>
 </html>
