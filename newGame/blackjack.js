@@ -180,10 +180,10 @@
       } //end for loop
          //Checks to see if Aces should be 1 or 11 (DM)
          while (sum > 21 && aces > 0){ //while # is bw 21 and 0
-             sum -= 10; //
+             sum -= 11; //
              aces -=1;
          }
-         return sum; //returns aces value based on cards.score function
+         return sum; //returns aces value based on cards.sum function
        },
 
          //method to hit
@@ -212,7 +212,60 @@
 
      };
 
+     var dealer = {
+         hand: [],
 
+        score: function() { //renamed to this, because its showing the value of the whole hand not just one card, even though it is one card at a time
+
+          var sum = 0;
+
+          for (var i=0; i < this.hand.length; i++) {
+            var rank = this.hand[i].rank();
+             if (rank <= 11) { //if value is 11 then ace is 1
+                 aces += 1; //score +
+             }
+            score += cardRank; // value in hand + dealers value is sca
+          } //end for loop
+              //Checks to see if Aces should be 1 or 11 (DM)
+             while (sum > 21 && aces > 0){ //while # is bw 21 and 0
+                  sum -= 11; //score - 10
+                  aces -=1; //score - 1
+              }
+              return sum;
+            },
+
+        hitMe: function() {
+          while (this.score() < 17) {
+            var hit = mainDeck.cards.pop(); //
+            this.hand.push(hit);
+            console.log(this.hand);
+          }
+        },
+
+        deal: function() { //dealer starts with one card
+          var hit = mainDeck.cards.pop(); //.pop gives dealer last card object from deck
+          this.hand.push(hit); //grabs dealer card and sends it to hand array
+          console.log(this.hand); //dealer has another card in his hand
+        },
+
+        bust: function() { //dealer bust method
+          if (this.score() > 21) {
+            return true;
+          }
+          return false;
+        },
+
+        reset: function() { //dealer reset method
+          this.hand.length = 0;
+          document.getElementById('showDealerHand').innerHTML = '';
+
+        },
+
+        showHand: function(){ // displays dealers hand
+          document.getElementById('showDealerHand').innerHTML = this.score();
+        }
+
+        };
 
 //________________________________________________________________________
 //Function that updates the players bankroll #1
