@@ -66,6 +66,8 @@ var cards = [
   {name: 'aceOfClubs', value: 11, img: 'img/ace_of_clubs.png', suit: 'clubs'},
 ];
 
+//deck should be shuffled before it is 
+
 //create player object
 
 
