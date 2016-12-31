@@ -97,16 +97,61 @@ var cards = [
     return this.deck;
   } //end shuffle function
 
-}; //end of deck constructor function  
+}; //end of deck constructor function
 
 
-//deck should be shuffled before it is
+//____________________________________________________________________
 
 //create player object
+ var player = {
+      hand: [],
 
+    score: function(){
+
+    },
+
+    hit: function(){
+
+    },
+
+    bust: function(){
+
+    },
+
+    reset: function(){
+
+    },
+
+    showHand: function(){
+
+    },
+ }; //end of player object
 
 //create dealer object
 
+  var dealer = {
+      hand: [],
+
+      score: function(){
+
+      },
+
+      hit: function(){
+
+      },
+
+      bust: function(){
+
+      },
+
+      reset: function(){
+
+      },
+
+      showHand: function(){
+
+      },
+  }; //end of dealer object
 
 //bank object
 
