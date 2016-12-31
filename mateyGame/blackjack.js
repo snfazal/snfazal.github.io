@@ -5,8 +5,14 @@ $(function(){
 //create a card function
 
 
-//create a deck object
+//create a card in order to pull first card from deck object
+var Card = function(name, value, suit, img) {
+  this.name = name;
+  this.value = value;
+  this.suit = suit;
+  this.img = img;
 
+};
 
 
 //Deck object with all 52 cards inside of it
@@ -66,7 +72,7 @@ var cards = [
   {name: 'aceOfClubs', value: 11, img: 'img/ace_of_clubs.png', suit: 'clubs'},
 ];
 
-//deck should be shuffled before it is 
+//deck should be shuffled before it is
 
 //create player object
 
