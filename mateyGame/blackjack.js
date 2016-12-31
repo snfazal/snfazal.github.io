@@ -6,13 +6,21 @@ $(function(){
 
 
 //create a card in order to pull first card from deck object
-var Card = function(name, value, suit, img) {
-  this.name = name;
-  this.value = value;
-  this.suit = suit;
-  this.img = img;
+  var Card = function(name, value, suit, img) {
+    this.name = name;
+    this.value = value;
+    this.suit = suit;
+    this.img = img;
 
-};
+  };
+
+  var Deck = function() {
+    this.deck = [];
+    this.makeDeck = function(){
+
+    //}
+
+
 
 
 //Deck object with all 52 cards inside of it
@@ -71,6 +79,12 @@ var cards = [
   {name: 'kingOfClubs', value: 10, img: 'img/king_of_clubs.png', suit: 'clubs'},
   {name: 'aceOfClubs', value: 11, img: 'img/ace_of_clubs.png', suit: 'clubs'},
 ];
+
+    for (var i = 0; i < cards.length; i++) {
+      this.deck.push(new Card(cards[i]));
+    },
+  }
+}; //end of makeDeck function
 
 //deck should be shuffled before it is
 
