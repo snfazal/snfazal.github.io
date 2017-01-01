@@ -158,23 +158,27 @@ var cards = [
       },
 
       hit: function(){
-        while (this.score() < 17) {
-          var hit = mainDeck.deck.pop();
+        while (this.score() < 17) { //while score under 17
+          var hit = mainDeck.deck.pop(); //take card from mainDeck
           this.hand.push(hit);
           console.log(this.hand);
         }
       },
 
       bust: function(){
-
+        if (this.score() > 21) {
+          return true;
+        };
+        return false;
       },
 
-      reset: function(){
-
+      reset: function(){ //dealer reset method
+        this.hand.length = 0;
+        document.getElementById('dealerScore').innerHTML = '';
       },
 
-      showHand: function(){
-
+      showHand: function(){ //displays dealers hand
+        document.getElementById('dealerScore').innerHTML = this.score();
       },
   }; //end of dealer object
 
