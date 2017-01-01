@@ -110,15 +110,19 @@ var cards = [
       var sum = 0;
 
       for (var i = 0; i < this.hand.length; i++) {
-        sum += this.hand[i].value;
-      }
+        sum += this.hand[i].value; //value in hand + dealers value is sum
+      } //end of for loop
 
       return sum;
-    },
+    }, //end of score function
 
     hit: function(){
-
-    },
+      while (this.score() < 17) { //while score is less than 17
+        var hit = mainDeck.deck.pop(); //hit the player with another card
+        this.hand.push(hit); //push that card to players hand
+        console.log(this.hand);
+      }
+    }, //end hit function 
 
     bust: function(){
 
