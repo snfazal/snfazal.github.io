@@ -136,7 +136,8 @@ var cards = [
       document.getElementById('playScore').innerHTML = ''; //get text of scoreboard with the score of play to change/update
     },
 
-    showHand: function(){
+    showHand: function(){ //method to show hand value of player
+      document.getElementById('playerScore').innerHTML = this.score();
 
     },
  }; //end of player object
