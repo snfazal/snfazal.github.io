@@ -126,13 +126,14 @@ var cards = [
 
     bust: function(){
       if (this.score() > 21) { //if handValue is over 21
-        return true; //return true, the player bust 
+        return true; //return true, the player bust
       }
-
+      return false; //if cardVal is under 21 return false
     },
 
-    reset: function(){
-
+    reset: function(){ //method to reset hand
+      this.hand.length = 0; //hand at play resets to 0
+      document.getElementById('playScore').innerHTML = ''; //get text of scoreboard with the score of play to change/update
     },
 
     showHand: function(){
