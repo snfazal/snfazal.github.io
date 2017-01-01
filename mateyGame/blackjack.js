@@ -122,9 +122,12 @@ var cards = [
         this.hand.push(hit); //push that card to players hand
         console.log(this.hand);
       }
-    }, //end hit function 
+    }, //end hit function
 
     bust: function(){
+      if (this.score() > 21) { //if handValue is over 21
+        return true; //return true, the player bust 
+      }
 
     },
 
