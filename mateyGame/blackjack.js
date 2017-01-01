@@ -147,12 +147,22 @@ var cards = [
   var dealer = {
       hand: [],
 
-      score: function(){
+      score: function(){ //show value of the whole hand
 
+        var sum = 0; //set sum to 0
+
+        for (var i = 0; i < this.hand.length; i++) {
+          sume += this.hand[i].value;
+        } //end for loop
+        return sum;
       },
 
       hit: function(){
-
+        while (this.score() < 17) {
+          var hit = mainDeck.deck.pop();
+          this.hand.push(hit);
+          console.log(this.hand);
+        }
       },
 
       bust: function(){
