@@ -107,7 +107,13 @@ var cards = [
       hand: [],
 
     score: function(){
+      var sum = 0;
 
+      for (var i = 0; i < this.hand.length; i++) {
+        sum += this.hand[i].value;
+      }
+
+      return sum;
     },
 
     hit: function(){
