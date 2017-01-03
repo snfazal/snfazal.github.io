@@ -184,6 +184,17 @@ var cards = [
 
 //bank object
 
+  var bank = {
+
+    bet: function(){
+
+      var betAmt = document.getElementById
+    }
+
+
+
+
+  }
 
 //
 
