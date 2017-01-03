@@ -1,3 +1,17 @@
 body {
   background-color: papayawhip;
 }
+
+#gameboard {
+  height: 500px;
+  width: 500px;
+  background-color: white;
+  border: 3 px ivory;
+}
+
+#button-holder {
+  text-align: center;
+  font-family: Veranda;
+  color: lavender;
+  position: relative;
+}
