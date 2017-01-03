@@ -8,4 +8,6 @@ Blackjack User Stories:
 
 4. As a user, I want to know if I have won or lost the game. As gameplay continues the user will be alerted of winning, losing, bust and if they tie the dealer. The bankroll will reflect on the users winning conditions.
 
-5. As a user, I want to know if I have hit blackjack. The user will be alerted when they have hit blackjack and won the game. Gameplay will cease, the bank will reflect the win and the game board will be reset for the user to begin again. 
+5. As a user, I want to know if I have hit blackjack. The user will be alerted when they have hit blackjack and won the game. Gameplay will cease, the bank will reflect the win and the game board will be reset for the user to begin again.
+
+6. 
