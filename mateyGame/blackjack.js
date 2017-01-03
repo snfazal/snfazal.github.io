@@ -52,13 +52,13 @@ $(function(){
 
 //____________________________________________________________________
 
-//create player object
- var player = {
+  //create player object
+  var player = {
       hand: [],
 
     score: function(){
       var sum = 0;
-
+      //using for loop to iterate through array that is the length of thr hand 
       for (var i = 0; i < this.hand.length; i++) {
         sum += this.hand[i].value; //value in hand + dealers value is sum
       } //end of for loop
