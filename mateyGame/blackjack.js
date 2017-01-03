@@ -168,7 +168,7 @@ console.log(deck1.deck);
       //declare variable to grab bank's inner text
       var newBank = document.getElementById('bankDisplay').innerHTML = newBank - betAmt;
     },
-
+    //method to reflect the winning hand
     winBet: function() {
       //betAmt will convert strings back into numbers for winning bet
       var betAmt = parseInt(document.getElementById('betAmt').value);
