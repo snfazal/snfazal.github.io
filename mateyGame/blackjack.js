@@ -160,19 +160,18 @@ console.log(deck1.deck);
 
 //bank object
 
-  // var bank = {
-  //
-  //   bet: function(){
-  //
-  //     var betAmt = document.getElementById
-  //   }
-  //
-  //
-  //
-  //
-  // }
+  var bank = {
+    //method to make bank reflect bets
+    bet: function() {
+      //declare what will be value in input box
+      var betAmt = document.getElementById('betAmt').value;
+      //declare variable to grab bank's inner text
+      var newBank = document.getElementById('bankDisplay').innerHTML = newBank - betAmt;
+    },
 
-//
+
+
+  };
 
 
 
