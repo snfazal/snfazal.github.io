@@ -26,10 +26,18 @@ $(function(){
       //declare values/rank
       var ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
 
+      //for loop for suits and ranks to be appended to each card
+      for (var i = 0; i < suits.length; i++) {
+        console.log(suits[i]);
+        for (var i = 0; i < ranks.length; i++) {
+          ranks[i]
+        }
+      }
+    }; //end of make deck function
 
 
 
-
+    //fisher-yates 
 //Deck object with all 52 cards inside of it
 
 
