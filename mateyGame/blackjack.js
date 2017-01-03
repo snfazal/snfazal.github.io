@@ -127,9 +127,18 @@ console.log(deck1.deck);
           var hit = mainDeck.deck.pop();
           //push card into arrary for hand
           this.hand.push(hit);
-          //what's happening here? 
+          //what's happening here?
           console.log(this.hand);
         }
+      },
+
+      startNow: function() {
+        //grab last card from deck
+        var nextCard = deck1.deck.pop();
+        //take card and put it inot array in hand
+        this.hand.push(nextCard);
+        //what's happening below
+        console.log(this.hand);
       },
 
       bust: function(){
