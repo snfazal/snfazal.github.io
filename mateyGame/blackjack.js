@@ -177,7 +177,7 @@ console.log(deck1.deck);
 
     },
     //method for bank to reflect the bet tht was made
-    pushBet: function() {
+    makeBet: function() {
       //convert strings back into numbers
       var betAmt = parseInt(document.getElementById('betAmt').value);
       //declaring variable to grab banks innerHTML
@@ -220,7 +220,7 @@ $(function(){
   $('#hit').on('click', function(){
     player.hit();
     player.showHand();
-    if (player.checkBust()) {
+    if (player.bust()) {
       alert("Bust, you lose!");
       player.reset();
       dealer.reset();
@@ -230,7 +230,7 @@ $(function(){
     }
   }) //end of hit on click
 
-  $('#stay').on('click', function(){
+  $('#stand').on('click', function(){
     dealer.hit();
     if(dealer.bust()){
       dealer.showHand();
@@ -240,8 +240,35 @@ $(function(){
       dealer.reset();
       document.getElementById('bet').style.visibility = 'visible';
       dealer.hitStart();
-    }
-  })
+    } else if (player.score() === dealer.score()){
+      dealer.displayHand();
+      bank.makeBet();
+      alert("it's a tie!");
+      player.reset();
+      dealer.reset();
+      bank.clearInputBox();
+      document.getElementById('bet').style.visibility = 'visibile';
+      dealer.hitStart();
+    } else if (player.score() > dealer.score()) {
+      dealer.showHand();
+      bank.winBet();
+      alert("You win!");
+      player.reset();
+      dealer.reset();
+      bank.clearInputBox();
+      document.getElementById('bet').style.visibility = 'visibile';
+      dealer.hitStart();
+    } else if (player.score() < dealer.score());
+      dealer.showHand();
+      alert("You lose!");
+      player.reset();
+      dealer.reset();
+      bank.clearInputBox();
+      document.getElementById('bet').style.visibility = 'visibile';
+      dealer.hitStart();
+  }) //end of onclick function 
+
+
 
 });
 
