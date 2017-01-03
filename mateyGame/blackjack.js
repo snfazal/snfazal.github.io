@@ -169,6 +169,18 @@ console.log(deck1.deck);
       var newBank = document.getElementById('bankDisplay').innerHTML = newBank - betAmt;
     },
 
+    winBet: function() {
+
+    },
+
+    pushBet: function() {
+
+    },
+
+    clearInputBox: function() {
+
+    };
+
 
 
   };
