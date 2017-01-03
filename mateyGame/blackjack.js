@@ -29,8 +29,8 @@
       //for loop for suits and ranks to be appended to each card
       for (var i = 0; i < suits.length; i++) {
         console.log(suits[i]);
-        for (var i = 0; i < ranks.length; i++) {
-          ranks[i]
+        for (var j = 0; j < ranks.length; j++) {
+          this.deck.push(new Card(ranks[j], suits[i]));
         }
       }
     }; //end of make deck function
@@ -66,27 +66,25 @@ console.log(deck1.deck);
       var sum = 0;
       //using for loop to iterate through array that is the length of thr hand
       for (var i = 0; i < this.hand.length; i++) {
-        sum += this.hand[i].value;
+        sum += this.hand[i].rank;
       } //end for loop
-
       return sum;
     }, //end of score function
 
     //method to hit another card to deck
     hit: function(){
       //while score is less than 17
-      while (this.score() < 17) {
+      // while (this.score() < 17) {
         //declares hitDeck and takes last card object from deck
         var nextCard = deck1.deck.pop();
         //pushed card into the array hand
         this.hand.push(nextCard);
         //what's happening below
         console.log(this.hand);
-      }
-    }, //end hit function
+    },
 
-    bust: function(){
-      if (this.score() > 21) { //if handValue is over 21
+    bust: function() {
+      if (this.score() > 21) { //if score is over 21
         return true; //return true, the player bust
       };
       //if cardVal is under 21 return false
@@ -95,7 +93,7 @@ console.log(deck1.deck);
     //method to reset hand
     reset: function(){ //method to reset hand
       this.hand.length = 0; //hand at play resets to 0
-      document.getElementById('playScore').innerHTML = ''; //get text of scoreboard with the score of play to change/update
+      document.getElementById('playerScore').innerHTML = ''; //get text of scoreboard with the score of play to change/update
     },
 
     showHand: function(){ //method to show hand value of player
@@ -124,15 +122,15 @@ console.log(deck1.deck);
         //while dealers hand value is under 17 dealer must continue to hit
         while (this.score() < 17) {
           //grab last card from deck
-          var hit = mainDeck.deck.pop();
+          var hitCard = mainDeck.deck.pop();
           //push card into arrary for hand
-          this.hand.push(hit);
+          this.hand.push(hitCard);
           //what's happening here?
           console.log(this.hand);
         }
       },
 
-      startNow: function() {
+      hitStart: function() {
         //grab last card from deck
         var nextCard = deck1.deck.pop();
         //take card and put it inot array in hand
@@ -175,7 +173,7 @@ console.log(deck1.deck);
       //grab bank's innerHTML to display the score
       var newBank = parseInt(document.getElementById('bankDisplay').innerHTML);
       //innerHTML should reflect updated bank amount for displays
-        document.getElementsById('bankDisplay').innerHTML = newBank + betAmt * 2;
+        document.getElementById('bankDisplay').innerHTML = newBank + betAmt * 2;
 
     },
     //method for bank to reflect the bet tht was made
@@ -199,8 +197,40 @@ console.log(deck1.deck);
 
   };
 
+// ________________DOM_______________________
 
+//window onload init
+$(function(){
 
+  player.hit();
+  player.hit();
+  //dealer starts with one card visible to the player
+  dealer.hitStart();
+  //display hand
+  player.showHand();
+  dealer.showHand();
+  //add click function to bet button
+  $('#bet').on('click', function() {
+    //calling on bet method from bank object
+    bank.bet();
+    //hide bet button
+    document.getElementById('bet').style.visibility = 'hidden';
+  }) //end of bet on click function
+
+  $('#hit').on('click', function(){
+    player.hit();
+    player.showHand();
+    if (player.checkBust()) {
+      alert("Bust, you lose!");
+      player.reset();
+      dealer.reset();
+      bank.clearInputBox();
+      document.getElementById('bet').style.visibility = 'visible';
+      dealer.hitStart();
+    }
+  })
+
+});
 
 
 
