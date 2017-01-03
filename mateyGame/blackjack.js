@@ -6,13 +6,14 @@ $(function(){
 
 
 //create a card in order to pull first card from deck object
-  var Card = function(name, value, suit, img) {
-    this.name = name;
-    this.value = value;
+  //card function
+  var Card = function(rank, suit) {
+    //assigns a rank that doubles as value
+    this.rank = rank;
+    //assigns a suit
     this.suit = suit;
-    this.img = img;
 
-  };
+  }; //end of card constructor function
 
   var Deck = function() {
     this.deck = [];
@@ -82,7 +83,7 @@ var cards = [
 
     for (var i = 0; i < cards.length; i++) {
       this.deck.push(new Card(cards[i]));
-    },
+    }
   }
 }; //end of makeDeck function
 
@@ -97,7 +98,7 @@ var cards = [
     return this.deck;
   } //end shuffle function
 
-}; //end of deck constructor function
+}); //end of deck constructor function
 
 
 //____________________________________________________________________
@@ -215,4 +216,4 @@ var cards = [
 
 
 
-})
+// });
