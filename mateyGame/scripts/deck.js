@@ -44,6 +44,7 @@
       this.deck[i] = this.deck[j];
       this.deck[j] = temp;
     }
+        console.log('shuffling cards!');
     return this.deck;
   } //end shuffle function
 
@@ -93,11 +94,11 @@ console.log(deck1.deck);
     //method to reset hand
     reset: function(){ //method to reset hand
       this.hand.length = 0; //hand at play resets to 0
-      document.getElementById('playerScore').innerHTML = ''; //get text of scoreboard with the score of play to change/update
+      document.getElementById('playerscore').innerHTML = ''; //get text of scoreboard with the score of play to change/update
     },
 
     showHand: function(){ //method to show hand value of player
-      document.getElementById('playerScore').innerHTML = this.score();
+      document.getElementById('playerscore').innerHTML = this.score();
 
     }
  }; //end of player object
@@ -148,11 +149,11 @@ console.log(deck1.deck);
 
       reset: function(){ //dealer reset method
         this.hand.length = 0;
-        document.getElementById('dealerScore').innerHTML = '';
+        document.getElementById('dealerscore').innerHTML = '';
       },
 
       showHand: function(){ //displays dealers hand
-        document.getElementById('dealerScore').innerHTML = this.score();
+        document.getElementById('dealerscore').innerHTML = this.score();
       },
   }; //end of dealer object
 
@@ -164,16 +165,16 @@ console.log(deck1.deck);
       //declare what will be value in input box
       var betAmt = document.getElementById('betAmt').value;
       //declare variable to grab bank's inner text
-      var newBank = document.getElementById('bankDisplay').innerHTML = newBank - betAmt;
+      var newBank = document.getElementById('bankdisplay').innerHTML = newBank - betAmt;
     },
     //method to reflect the winning hand
     winBet: function() {
       //betAmt will convert strings back into numbers for winning bet
       var betAmt = parseInt(document.getElementById('betAmt').value);
       //grab bank's innerHTML to display the score
-      var newBank = parseInt(document.getElementById('bankDisplay').innerHTML);
+      var newBank = parseInt(document.getElementById('bankdisplay').innerHTML);
       //innerHTML should reflect updated bank amount for displays
-        document.getElementById('bankDisplay').innerHTML = newBank + betAmt * 2;
+        document.getElementById('bankdisplay').innerHTML = newBank + betAmt * 2;
 
     },
     //method for bank to reflect the bet tht was made
@@ -181,7 +182,7 @@ console.log(deck1.deck);
       //convert strings back into numbers
       var betAmt = parseInt(document.getElementById('betAmt').value);
       //declaring variable to grab banks innerHTML
-      var newBank = parseInt(document.getElementById('bankDisplay').innerHTML);
+      var newBank = parseInt(document.getElementById('bankdisplay').innerHTML);
       //innerHTML will reflect updated bank score and display that to player
         document.getElementById('bankDisplay').innerHTML = newBank + betAmt;
 
@@ -189,8 +190,8 @@ console.log(deck1.deck);
     //method to clear the input box
     clearInputBox: function() {
       //grab input box and clear it
-      var box = document.getElementById('betAmt');
-        box.value = '';
+      var input = document.getElementById('betAmt')
+        input.value = '';
     }
 
 
@@ -222,9 +223,9 @@ $(function(){
     player.showHand();
     if (player.bust()) {
       alert("Bust, you lose!");
-      player.reset();
-      dealer.reset();
-      bank.clearInputBox();
+      // player.reset();
+      // dealer.reset();
+      bank.winBet();
       document.getElementById('bet').style.visibility = 'visible';
       dealer.hitStart();
     } else if (player.score() === 21){
@@ -242,6 +243,7 @@ $(function(){
       dealer.showHand();
       bank.winBet();
       alert("You win, the dealer busted! yay!");
+      alert("resetting gameboard");
       player.reset();
       dealer.reset();
       document.getElementById('bet').style.visibility = 'visible';
@@ -258,7 +260,7 @@ $(function(){
     } else if (player.score() > dealer.score()) {
       dealer.showHand();
       bank.winBet();
-      alert("You win!");
+      alert("You win! Your hand beat the dealers");
       player.reset();
       dealer.reset();
       bank.clearInputBox();
@@ -266,7 +268,7 @@ $(function(){
       dealer.hitStart();
     } else if (player.score() < dealer.score());
       dealer.showHand();
-      alert("You lose!");
+      alert("You lose! The dealer had a better hand than you.");
       player.reset();
       dealer.reset();
       bank.clearInputBox();
