@@ -36,19 +36,7 @@ $(function(){
     }; //end of make deck function
 
 
-
-    //fisher-yates 
-//Deck object with all 52 cards inside of it
-
-
-
-    for (var i = 0; i < cards.length; i++) {
-      this.deck.push(new Card(cards[i]));
-    }
-  }
-}; //end of makeDeck function
-
-//Fisher yates shuffle function to shuffle the deck
+  //Fisher yates shuffle function to shuffle the deck
   this.shuffle = function() {
     for(i = this.deck.length - 1; i > 0; i--){
       j = Math.floor(Math.random() * (i + 1));
