@@ -227,6 +227,12 @@ $(function(){
       bank.clearInputBox();
       document.getElementById('bet').style.visibility = 'visible';
       dealer.hitStart();
+    } else if (player.score() === 21){
+      alert("blackjack, so you win!");
+      player.showHand();
+      dealer.showHand();
+      bank.clearInputBox();
+      document.getElementById('bet').style.visibility = 'visible';
     }
   }) //end of hit on click
 
@@ -241,7 +247,7 @@ $(function(){
       document.getElementById('bet').style.visibility = 'visible';
       dealer.hitStart();
     } else if (player.score() === dealer.score()){
-      dealer.displayHand();
+      dealer.showHand();
       bank.makeBet();
       alert("it's a tie!");
       player.reset();
@@ -266,7 +272,7 @@ $(function(){
       bank.clearInputBox();
       document.getElementById('bet').style.visibility = 'visibile';
       dealer.hitStart();
-  }) //end of onclick function 
+  }) //end of onclick function
 
 
 
