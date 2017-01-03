@@ -121,9 +121,13 @@ console.log(deck1.deck);
       },
 
       hit: function(){
-        while (this.score() < 17) { //while score under 17
-          var hit = mainDeck.deck.pop(); //take card from mainDeck
+        //while dealers hand value is under 17 dealer must continue to hit
+        while (this.score() < 17) {
+          //grab last card from deck
+          var hit = mainDeck.deck.pop();
+          //push card into arrary for hand
           this.hand.push(hit);
+          //what's happening here? 
           console.log(this.hand);
         }
       },
