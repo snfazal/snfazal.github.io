@@ -228,6 +228,19 @@ $(function(){
       document.getElementById('bet').style.visibility = 'visible';
       dealer.hitStart();
     }
+  }) //end of hit on click
+
+  $('#stay').on('click', function(){
+    dealer.hit();
+    if(dealer.bust()){
+      dealer.showHand();
+      bank.winBet();
+      alert("You win, the dealer busted! yay!");
+      player.reset();
+      dealer.reset();
+      document.getElementById('bet').style.visibility = 'visible';
+      dealer.hitStart();
+    }
   })
 
 });
