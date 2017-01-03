@@ -47,7 +47,12 @@ $(function(){
     return this.deck;
   } //end shuffle function
 
-}); //end of deck constructor function
+}; //end of deck constructor function
+
+var deck1 = new Deck();
+deck1.makeDeck();
+deck1.shuffle();
+console.log(deck1.deck);
 
 
 //____________________________________________________________________
@@ -56,20 +61,26 @@ $(function(){
   var player = {
       hand: [],
 
+    //method to return value of hand
     score: function(){
       var sum = 0;
-      //using for loop to iterate through array that is the length of thr hand 
+      //using for loop to iterate through array that is the length of thr hand
       for (var i = 0; i < this.hand.length; i++) {
-        sum += this.hand[i].value; //value in hand + dealers value is sum
-      } //end of for loop
+        sum += this.hand[i].value;
+      } //end for loop
 
       return sum;
     }, //end of score function
 
+    //method to hit another card to deck
     hit: function(){
-      while (this.score() < 17) { //while score is less than 17
-        var hit = mainDeck.deck.pop(); //hit the player with another card
-        this.hand.push(hit); //push that card to players hand
+      //while score is less than 17
+      while (this.score() < 17) {
+        //declares hitDeck and takes last card object from deck
+        var nextCard = deck1.deck.pop();
+        //pushed card into the array hand
+        this.hand.push(nextCard);
+        //what's happening below
         console.log(this.hand);
       }
     }, //end hit function
@@ -77,10 +88,11 @@ $(function(){
     bust: function(){
       if (this.score() > 21) { //if handValue is over 21
         return true; //return true, the player bust
-      }
-      return false; //if cardVal is under 21 return false
+      };
+      //if cardVal is under 21 return false
+      return false;
     },
-
+    //method to reset hand
     reset: function(){ //method to reset hand
       this.hand.length = 0; //hand at play resets to 0
       document.getElementById('playScore').innerHTML = ''; //get text of scoreboard with the score of play to change/update
@@ -89,7 +101,7 @@ $(function(){
     showHand: function(){ //method to show hand value of player
       document.getElementById('playerScore').innerHTML = this.score();
 
-    },
+    }
  }; //end of player object
 
 //create dealer object
@@ -134,17 +146,17 @@ $(function(){
 
 //bank object
 
-  var bank = {
-
-    bet: function(){
-
-      var betAmt = document.getElementById
-    }
-
-
-
-
-  }
+  // var bank = {
+  //
+  //   bet: function(){
+  //
+  //     var betAmt = document.getElementById
+  //   }
+  //
+  //
+  //
+  //
+  // }
 
 //
 
