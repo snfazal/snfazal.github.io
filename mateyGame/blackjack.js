@@ -112,9 +112,10 @@ console.log(deck1.deck);
       score: function(){ //show value of the whole hand
 
         var sum = 0; //set sum to 0
-
+        //iterate through array length that makes the hand
         for (var i = 0; i < this.hand.length; i++) {
-          sume += this.hand[i].value;
+          //sum is the score of hand
+          sum += this.hand[i].value;
         } //end for loop
         return sum;
       },
