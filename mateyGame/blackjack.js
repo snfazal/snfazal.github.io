@@ -1,4 +1,4 @@
-$(function(){
+
 
 //grabb objects from bank in jquery
 
@@ -170,16 +170,30 @@ console.log(deck1.deck);
     },
 
     winBet: function() {
+      //betAmt will convert strings back into numbers for winning bet
+      var betAmt = parseInt(document.getElementById('betAmt').value);
+      //grab bank's innerHTML to display the score
+      var newBank = parseInt(document.getElementById('bankDisplay').innerHTML);
+      //innerHTML should reflect updated bank amount for displays
+        document.getElementsById('bankDisplay').innerHTML = newBank + betAmt * 2;
 
     },
-
+    //method for bank to reflect the bet tht was made
     pushBet: function() {
+      //convert strings back into numbers
+      var betAmt = parseInt(document.getElementById('betAmt').value);
+      //declaring variable to grab banks innerHTML
+      var newBank = parseInt(document.getElementById('bankDisplay').innerHTML);
+      //innerHTML will reflect updated bank score and display that to player
+        document.getElementById('bankDisplay').innerHTML = newBank + betAmt;
 
     },
-
+    //method to clear the input box
     clearInputBox: function() {
-
-    };
+      //grab input box and clear it
+      var box = document.getElementById('betAmt');
+        box.value = '';
+    }
 
 
 
