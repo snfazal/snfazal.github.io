@@ -3,6 +3,7 @@
 //grabb objects from bank in jquery
 
 //create a card function
+$(function(){
 
 
 //create a card in order to pull first card from deck object
@@ -86,7 +87,7 @@ console.log(deck1.deck);
 
     bust: function() {
       if (this.score() > 21) { //if score is over 21
-        return true; //return true, the player bust
+        return true;
       };
       //if cardVal is under 21 return false
       return false;
@@ -100,6 +101,13 @@ console.log(deck1.deck);
     showHand: function(){ //method to show hand value of player
       document.getElementById('playerscore').innerHTML = this.score();
 
+    },
+
+    toWin: function(){
+      if (this.score() === 21) {
+      return true;
+    };
+      return false;
     }
  }; //end of player object
 
@@ -123,9 +131,9 @@ console.log(deck1.deck);
         //while dealers hand value is under 17 dealer must continue to hit
         while (this.score() < 17) {
           //grab last card from deck
-          var hitCard = mainDeck.deck.pop();
+          var nextCard = deck1.deck.pop();
           //push card into arrary for hand
-          this.hand.push(hitCard);
+          this.hand.push(nextCard);
           //what's happening here?
           console.log(this.hand);
         }
@@ -184,14 +192,14 @@ console.log(deck1.deck);
       //declaring variable to grab banks innerHTML
       var newBank = parseInt(document.getElementById('bankdisplay').innerHTML);
       //innerHTML will reflect updated bank score and display that to player
-        document.getElementById('bankDisplay').innerHTML = newBank + betAmt;
+        document.getElementById('bankdisplay').innerHTML = newBank + betAmt;
 
     },
     //method to clear the input box
     clearInputBox: function() {
       //grab input box and clear it
-      var input = document.getElementById('betAmt')
-        input.value = '';
+      var boxAmt = document.getElementById('betAmt');
+        boxAmt.value = '';
     }
 
 
@@ -201,7 +209,7 @@ console.log(deck1.deck);
 // ________________DOM_______________________
 
 //window onload init
-$(function(){
+
 
   player.hit();
   player.hit();
@@ -219,34 +227,47 @@ $(function(){
   }) //end of bet on click function
 
   $('#hit').on('click', function(){
+    //player gets another card
     player.hit();
+    //show cards in the players current hand
     player.showHand();
+    //check to see if the player has a winning hand
+    player.toWin();
+    //check to see if the player busted and lost
     if (player.bust()) {
       alert("Bust, you lose!");
       // player.reset();
       // dealer.reset();
+      //show winning hand to user
       bank.winBet();
+      //clear bank to start a new game
+      bank.clearInputBox();
+      //show bet button again
       document.getElementById('bet').style.visibility = 'visible';
-      dealer.hitStart();
+
     } else if (player.score() === 21){
       alert("blackjack, so you win!");
+      //show hand of both player and the dealer
       player.showHand();
       dealer.showHand();
+      //clear input box so that new game can begin
       bank.clearInputBox();
+      //bring bet button back so player can place a new bet
       document.getElementById('bet').style.visibility = 'visible';
     }
   }) //end of hit on click
 
   $('#stand').on('click', function(){
     dealer.hit();
+    dealer.showHand();
     if(dealer.bust()){
-      dealer.showHand();
+      // dealer.showHand();
       bank.winBet();
       alert("You win, the dealer busted! yay!");
       alert("resetting gameboard");
       player.reset();
       dealer.reset();
-      document.getElementById('bet').style.visibility = 'visible';
+      document.getElementById('bet').style.visibility = 'visible'
       dealer.hitStart();
     } else if (player.score() === dealer.score()){
       dealer.showHand();
@@ -255,7 +276,7 @@ $(function(){
       player.reset();
       dealer.reset();
       bank.clearInputBox();
-      document.getElementById('bet').style.visibility = 'visibile';
+      document.getElementById('bet').style.visibility = 'visibile'
       dealer.hitStart();
     } else if (player.score() > dealer.score()) {
       dealer.showHand();
@@ -264,7 +285,7 @@ $(function(){
       player.reset();
       dealer.reset();
       bank.clearInputBox();
-      document.getElementById('bet').style.visibility = 'visibile';
+      document.getElementById('bet').style.visibility = 'visibile'
       dealer.hitStart();
     } else if (player.score() < dealer.score());
       dealer.showHand();
@@ -272,7 +293,7 @@ $(function(){
       player.reset();
       dealer.reset();
       bank.clearInputBox();
-      document.getElementById('bet').style.visibility = 'visibile';
+      document.getElementById('bet').style.visibility = 'visibile'
       dealer.hitStart();
   }) //end of onclick function
 
