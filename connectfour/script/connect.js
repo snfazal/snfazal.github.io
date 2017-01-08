@@ -55,3 +55,11 @@ console.log("hello world");
 
     },
   };
+
+  var viewEngine = {
+
+  };
+
+  var gameController = {
+    
+  }
