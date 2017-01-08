@@ -57,9 +57,17 @@ console.log("hello world");
   };
 
   var viewEngine = {
-
+    updateGameboard: function(){
+      for(var i=0; i <gameEngine.board.length; i++){
+        for(var j=0; j < 6; j++){
+          if(gameEngine.board[i][j] == "r"){
+            
+          }
+        }
+      }
+    }
   };
 
   var gameController = {
-    
+
   }
