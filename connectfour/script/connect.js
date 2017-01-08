@@ -45,4 +45,13 @@ console.log("hello world");
       }
       //returns false(gameover)if move not legal
       return false;
-    }
+    },
+
+    checkVictory: function(){
+
+    },
+
+    makeMove: function(){
+
+    },
+  };
