@@ -48,8 +48,13 @@ console.log("hello world");
     },
 
     checkVictory: function(){
-
+      //
     },
+
+    leftWin: function(){
+    },
+
+    
 
     makeMove: function(){
 
@@ -61,7 +66,7 @@ console.log("hello world");
       for(var i=0; i <gameEngine.board.length; i++){
         for(var j=0; j < 6; j++){
           if(gameEngine.board[i][j] == "r"){
-            
+
           }
         }
       }
