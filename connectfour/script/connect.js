@@ -51,10 +51,13 @@ console.log("hello world");
       //
     },
 
-    leftWin: function(){
+    horizontalVictory: function(columnNum){
+      for (var row = 0; row < columnNum.length; row++){
+        for (var col = 0; col < allcolumns.length - 3; col++)
+      }
     },
 
-    
+
 
     makeMove: function(){
 
