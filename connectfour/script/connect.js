@@ -154,7 +154,12 @@ console.log("hello world");
       viewEngine.refreshBoardView();
     },
 
-    
+      //http://stackoverflow.com/questions/11747934/select-td-based-on-data-attribute
+    //method to drop a piece into columns on click
+    onClickDropPiece: function(columnNum){
+      //columnNum is equal to the attribute value matched in the data columns 
+      var columnNum = $(this).attr('data-columns');
+    }
 
   }
 
