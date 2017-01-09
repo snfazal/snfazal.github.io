@@ -49,7 +49,7 @@ console.log("hello world");
 
     checkVictory: function(columnNum){
       //horizontal victory if sum of pieces is greater or equal to 4
-      if(this.horizontalVictory(columnNum)) >= 4){
+      if(this.horizontalVictory(columnNum) >= 4){
         return true;
       }
       //vertical victory winner if sum of pieces is greater or equal to 4
@@ -90,9 +90,21 @@ console.log("hello world");
 
     makeMove: function(columnNum){
       //if the legal move is in a column
-      is(this.isValidMove(columnNum)){
-        //
-    
+      if(this.isValidMove(columnNum)){
+        //the board pushes piece into a column by the player
+        this.board[columnNum].push(this.player);
+        //if checkVictory is met in the column
+        if(this.checkVictory(columnNum)){
+          //game is over and victory is true to that player
+          this.gameOver = true;
+          //or else its the other player
+        } else {
+          this.togglePlayer();
+        }
+        return true;
+      }
+      return false;
+    }
   };
 
   var viewEngine = {
