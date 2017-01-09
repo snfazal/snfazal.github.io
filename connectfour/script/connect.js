@@ -111,8 +111,6 @@ console.log("hello world");
     }
   };
 
-  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs --> math.abs() documentation
-
   //UI//
 
   var viewEngine = {
@@ -154,19 +152,26 @@ console.log("hello world");
       viewEngine.refreshBoardView();
     },
 
-      //http://stackoverflow.com/questions/11747934/select-td-based-on-data-attribute
+
+
     //method to drop a piece into columns on click
     onClickDropPiece: function(columnNum){
-      //columnNum is equal to the attribute value matched in the data columns 
+      //columnNum is equal to the attribute value matched in the data columns
       var columnNum = $(this).attr('data-columns');
     }
 
   }
 
 
+//------------------other resources used in game--------------------------------
 
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs --> math.abs() documentation
 
+//idea for using data attribute, still went with defining variable of columnNum simplicity and understanding
+//http://stackoverflow.com/questions/11747934/select-td-based-on-data-attribute
 
+//Below writing gameEngine using javascript
+//http://softwareengineering.stackexchange.com/questions/106791/writing-a-game-engine-using-javascript
 
 //-------------------------graveyard--------------------------------------------
   //
