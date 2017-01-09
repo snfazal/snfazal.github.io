@@ -146,6 +146,15 @@ console.log("hello world");
   };
 
   var gameController = {
+    //method to click button to start a new game
+    onClickNewGame: function(){
+      //from gameEngine constructor use resetGame method to start new game
+      gameEngine.resetGame();
+      //then from viewEngine object use refreshBoardView method to see the update
+      viewEngine.refreshBoardView();
+    },
+
+    
 
   }
 
