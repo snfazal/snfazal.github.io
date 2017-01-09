@@ -31,7 +31,7 @@ console.log("hello world");
     //method to set legal moves
     isValidMove: function(columnNum){
       //if the game is over
-      if(!this.gaveOver){
+      if(!this.gameOver){
         //if the columnNum is has room for anymore pieces to be dropped
         if(!this.board[columnNum] || this.board[columnNum].length < 6){
           //clear any moves not legal
@@ -47,9 +47,17 @@ console.log("hello world");
       return false;
     },
 
-    checkVictory: function(){
-      //winner has sum of horizontal pieces of four or more
-      if(this.horizontalVictory(columnNum))
+    checkVictory: function(columnNum){
+      //horizontal victory if sum of pieces is greater or equal to 4
+      if(this.horizontalVictory(columnNum)) >= 4){
+        return true;
+      }
+      //vertical victory winner if sum of pieces is greater or equal to 4
+      if(this.verticalVictory(columnNum) >= 4){
+        return true;
+      }
+      //if neither than false
+      return false;
     },
 
     horizontalVictory: function(columnNum){
@@ -79,6 +87,12 @@ console.log("hello world");
       }
       return count++;
     },
+
+    makeMove: function(columnNum){
+      //if the legal move is in a column
+      is(this.isValidMove(columnNum)){
+        //
+    
   };
 
   var viewEngine = {
