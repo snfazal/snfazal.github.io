@@ -68,6 +68,7 @@ console.log("hello world");
       //iterate through the column minus one
       for(var i=columnNum - 1; i >= 0; i--){
         if(this.board[i][rowNum] && this.board[i][rowNum] == this.player){
+          //console.log(this.board[i][rowNum] && this.board[i][rowNum] == this.player)
           count++;
         } else {
           break;
