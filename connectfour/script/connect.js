@@ -111,20 +111,31 @@ console.log("hello world");
     }
   };
 
-  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs --> math.abs() documentation 
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs --> math.abs() documentation
+
+  //UI//
 
   var viewEngine = {
     //method to refresh board and see the update
     refreshBoardView: function(){
-      //interate through gameEngine on the board
+      //interate through gameEngine for the length of the whole board
       for(var i=0; i <gameEngine.board.length; i++){
-        //
-        for(var j=0; j < 6; j++){
+        //iterate throug the 7 columns on the board
+        for(var j=0; j < 7; j++){
+          //if pieces on board are continuous and red
           if(gameEngine.board[i][j] == "r"){
-            $(.board[i][j] == "b"){
+            //then append the absolute value of the player to the columns via div
+            $('.board').children().eq(i).children().eq(Math.abs(j-7)).html("<div class='red-player'></div>");
+            //else if pieces on board are black
+          } else if (gameEngine.board[i][j] == "b"){
+            $('.board').children().eq(i).children().eq(Math.abs(j-7)).html("<div class='red-player'></div>");
           }
         }
       }
+    },
+
+    flashMessage: function(message){
+      
     }
   };
 
