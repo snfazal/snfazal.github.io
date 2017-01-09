@@ -48,17 +48,36 @@ console.log("hello world");
     },
 
     checkVictory: function(){
-      //
+      //winner has sum of horizontal pieces of four or more
+      if(this.horizontalVictory(columnNum))
     },
 
     horizontalVictory: function(columnNum){
-    
+      var count = 0;
+      var rowNum = this.board[columnNum].length - 1;
+      for(var i=columnNum - 1; i >= 0; i--){
+        if(this.board[i][rowNum] && this.board[i][rowNum] == this.player){
+          count++;
+        } else {
+          break;
+        }
+      }
+      return count;
     },
 
 
 
-    makeMove: function(){
-
+    verticalVictory: function(columnNum){
+      var count = 0;
+      var rowNum = this.board[columnNum].length - 1;
+      for(var i=rowNum - 1; i >= 0; i--){
+        if(this.board[columnNum][i] && this.board[columnNum][i] == this.player){
+          count++;
+        } else {
+          break;
+        }
+      }
+      return count++;
     },
   };
 
