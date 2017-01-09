@@ -12,7 +12,7 @@ console.log("hello world");
     //method to reset the game, clear gameboard
     resetGame: function(){
       this.board = [[], [], [], [], [], [], []],
-      this.player = "b";
+      this.player = "r";
       this.gameOver = "false";
     },
 
