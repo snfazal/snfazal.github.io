@@ -112,7 +112,7 @@ console.log("hello world");
       for(var i=0; i <gameEngine.board.length; i++){
         for(var j=0; j < 6; j++){
           if(gameEngine.board[i][j] == "r"){
-
+            $(.gameboard)
           }
         }
       }
@@ -123,6 +123,12 @@ console.log("hello world");
 
   }
 
+
+
+
+
+
+//-------------------------graveyard--------------------------------------------
   //
   // horizontalVictory: function(columnNum){
   //   for (var row = 0; row < columnNum.length; row++){
