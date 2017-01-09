@@ -61,8 +61,11 @@ console.log("hello world");
     },
 
     horizontalVictory: function(columnNum){
+      //set count to zero for victory
       var count = 0;
+      //set the row number as the column minus one
       var rowNum = this.board[columnNum].length - 1;
+      //iterate through the column minus one
       for(var i=columnNum - 1; i >= 0; i--){
         if(this.board[i][rowNum] && this.board[i][rowNum] == this.player){
           count++;
@@ -76,6 +79,7 @@ console.log("hello world");
 
 
     verticalVictory: function(columnNum){
+      //set count to zero for victory
       var count = 0;
       var rowNum = this.board[columnNum].length - 1;
       for(var i=rowNum - 1; i >= 0; i--){
