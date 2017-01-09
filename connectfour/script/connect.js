@@ -135,7 +135,7 @@ console.log("hello world");
     },
 
     flashMessage: function(message){
-      
+      $('.flash-msg').html(message).css('display', 'block');
     }
   };
 
