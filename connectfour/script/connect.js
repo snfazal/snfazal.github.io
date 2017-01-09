@@ -135,10 +135,12 @@ console.log("hello world");
     },
 
     flashMessage: function(message){
+      //flash a message to the player via innerhtml
       $('.flash-msg').html(message).css('display', 'block');
     },
 
     clearFlash: function(){
+      //clear message for player via innerhtml
       $('.flash-msg').html('').css('display', 'none');
     },
   };
