@@ -52,9 +52,7 @@ console.log("hello world");
     },
 
     horizontalVictory: function(columnNum){
-      for (var row = 0; row < columnNum.length; row++){
-        for (var col = 0; col < allcolumns.length - 3; col++)
-      }
+    
     },
 
 
@@ -79,3 +77,18 @@ console.log("hello world");
   var gameController = {
 
   }
+
+  //
+  // horizontalVictory: function(columnNum){
+  //   for (var row = 0; row < columnNum.length; row++){
+  //     for (var col = 0; col < column.length - 3; col++){
+  //     if (column[col][row] === 'black'  && column[col+1][row] === 'black'  && column[col+2][row] === 'black'  && column[col+3][row] === 'black') {
+  //       alert('black won');
+  //       won = true;
+  //     } else if (column[col][row] === 'red' && column[col][row+1] === 'red' &&    column[col][row+2] === 'red' && column[col][row+3] === 'red'){
+  //       alert('red won');
+  //       won = true;
+  //     }
+  //     }
+  //   }
+  // },
