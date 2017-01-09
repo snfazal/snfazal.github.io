@@ -128,6 +128,8 @@ console.log("hello world");
             //else if pieces on board are black
           } else if (gameEngine.board[i][j] == "b"){
             $('.board').children().eq(i).children().eq(Math.abs(j-7)).html("<div class='black-player'></div>");
+          } else {
+            $('.board').children().eq(i).children().eq(Math.abs(j-7)).html("");
           }
         }
       }
