@@ -2,7 +2,7 @@
   /*height: 500px;*/
   margin: auto;
   width: 500px;
-  background-color: papayawhip;
+  /*background-color: papayawhip;*/
 }
 
 .space {
@@ -22,7 +22,7 @@
   width: 45px;
 }
 .black-player {
-  background-color: red;
+  background-color: black;
   height: 45px;
   width: 45px;
 }

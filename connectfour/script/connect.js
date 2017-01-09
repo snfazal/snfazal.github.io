@@ -4,7 +4,7 @@ console.log("hello world");
 //object constructor function
   var gameEngine = {
     //empty array of 7 columns filled with nothing
-    board: [[], [], [], [], [], []],
+    board: [[], [], [], [], [], [], []],
     //first player is red
     player: "r",
     gameOver: false,
@@ -127,7 +127,7 @@ console.log("hello world");
             $('.board').children().eq(i).children().eq(Math.abs(j-7)).html("<div class='red-player'></div>");
             //else if pieces on board are black
           } else if (gameEngine.board[i][j] == "b"){
-            $('.board').children().eq(i).children().eq(Math.abs(j-7)).html("<div class='red-player'></div>");
+            $('.board').children().eq(i).children().eq(Math.abs(j-7)).html("<div class='black-player'></div>");
           }
         }
       }
