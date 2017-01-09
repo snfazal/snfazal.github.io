@@ -3,7 +3,7 @@ console.log("hello world");
 
 //object constructor function
   var gameEngine = {
-    //empty array of 7 columns filled with nothing
+    //7 totally empty arrays
     board: [[], [], [], [], [], [], []],
     //first player is red
     player: "r",
