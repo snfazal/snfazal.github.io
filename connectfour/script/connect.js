@@ -111,9 +111,14 @@ console.log("hello world");
     }
   };
 
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs --> math.abs() documentation 
+
   var viewEngine = {
+    //method to refresh board and see the update
     refreshBoardView: function(){
+      //interate through gameEngine on the board
       for(var i=0; i <gameEngine.board.length; i++){
+        //
         for(var j=0; j < 6; j++){
           if(gameEngine.board[i][j] == "r"){
             $(.board[i][j] == "b"){
