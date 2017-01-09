@@ -4,14 +4,14 @@ console.log("hello world");
 //object constructor function
   var gameEngine = {
     //empty array of 7 columns filled with nothing
-    board: Array(7).fill(null),
+    board: [[], [], [], [], [], []],
     //first player is red
     player: "r",
     gameOver: false,
 
     //method to reset the game, clear gameboard
     resetGame: function(){
-      this.board = Array(7).fill(null),
+      this.board = [[], [], [], [], [], [], []],
       this.player = "b";
       this.gameOver = "false";
     },
@@ -96,7 +96,7 @@ console.log("hello world");
       //if the legal move is in a column
       if(this.isValidMove(columnNum)){
         //the board pushes piece into a column by the player
-        this.board(columnNum).push(this.player);
+        this.board[columnNum].push(this.player);
         //if checkVictory is met in the column
         if(this.checkVictory(columnNum)){
           //game is over and victory is true to that player
