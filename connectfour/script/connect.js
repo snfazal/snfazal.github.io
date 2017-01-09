@@ -154,13 +154,23 @@ console.log("hello world");
 
 
 
-    //method to drop a piece into columns on click
+    //method to drop a piece onto the board on a click
     onClickBoardSpace: function(columnNum){
       //columnNum is equal to the attribute value matched in the data columns
-      var position= $(this).attr('data-columns');
+      var pos = $(this).attr('data-columns');
+      //define all legal moves able to be made in positions
+      var isValidMove = gameEngine.makeMove(pos - 1);
+      //take a look at updated gameboard by initiating viewEngine
+      viewEngine.refreshBoardView();
+      if(gameEngine.gameOver){
+        if(this.player == "b"){
+          viewEngine.flashMessage('player two has won the game! in all black');
+        } else {
+          viewEngine.flashMessage('player one has won the game! in all red');
+        }
+      }
     }
-
-  }
+  };
 
 
 //------------------other resources used in game--------------------------------
