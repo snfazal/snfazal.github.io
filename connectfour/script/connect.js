@@ -96,7 +96,7 @@ console.log("hello world");
       //if the legal move is in a column
       if(this.isValidMove(columnNum)){
         //the board pushes piece into a column by the player
-        this.board[columnNum].push(this.player);
+        this.board(columnNum).push(this.player);
         //if checkVictory is met in the column
         if(this.checkVictory(columnNum)){
           //game is over and victory is true to that player
@@ -157,9 +157,9 @@ console.log("hello world");
     //method to drop a piece onto the board on a click
     onClickBoardSpace: function(columnNum){
       //columnNum is equal to the attribute value matched in the data columns
-      var pos = $(this).attr('data-columns');
+      var columnNum = $(this).attr('data-column');
       //define all legal moves able to be made in positions
-      var isValidMove = gameEngine.makeMove(pos - 1);
+      var isValidMove = gameEngine.makeMove(columnNum - 1);
       //take a look at updated gameboard by initiating viewEngine
       viewEngine.refreshBoardView();
       if(gameEngine.gameOver){
@@ -172,7 +172,12 @@ console.log("hello world");
     }
   };
 
-  
+  $(function(){
+
+    $('#new-game').on('click', gameController.onClickNewGame);
+    $('.play-btn').on('click', gameController.onClickBoardSpace);
+
+  });
 
 
 //------------------other resources used in game--------------------------------
