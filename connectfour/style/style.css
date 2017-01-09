@@ -15,3 +15,10 @@
 .column {
   float: left;
 }
+
+.red-player {
+  background-color: red;
+  height: 45px;
+  width: 45px;
+  
+}

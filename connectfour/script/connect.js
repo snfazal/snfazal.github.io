@@ -33,7 +33,7 @@ console.log("hello world");
       //if the game is over
       if(!this.gameOver){
         //if the columnNum is has room for anymore pieces to be dropped
-        if(!this.board[columnNum] || this.board[columnNum].length < 6){
+        if(!this.board[columnNum] || this.board[columnNum].length < 7){
           //clear any moves not legal
           viewEngine.clearFlash();
           //returns true if piece can be dropped and game continues
