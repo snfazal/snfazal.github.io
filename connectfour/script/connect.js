@@ -155,9 +155,9 @@ console.log("hello world");
 
 
     //method to drop a piece into columns on click
-    onClickDrop: function(columnNum){
+    onClickBoardSpace: function(columnNum){
       //columnNum is equal to the attribute value matched in the data columns
-      var columnNum = $(this).attr('data-columns');
+      var position= $(this).attr('data-columns');
     }
 
   }
