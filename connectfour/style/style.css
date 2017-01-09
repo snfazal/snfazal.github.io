@@ -1,5 +1,6 @@
 .board {
-  height: 500px;
+  /*height: 500px;*/
+  margin: auto;
   width: 500px;
   background-color: papayawhip;
 }
@@ -9,4 +10,8 @@
   border: 2px solid black;
   height: 50px;
   width: 50px;
+}
+
+.column {
+  float: left;
 }
