@@ -183,6 +183,13 @@ console.log("hello world");
 
 //------------------other resources used in game--------------------------------
 
+
+//using empty arrays in javascript
+//http:stackoverflow.com/questions/1232040/how-do-i-empty-an-array-in-javascript
+
+//most efficient way to fill an array in javascript
+//http://stackoverflow.com/questions/1295584/most-efficient-way-to-create-a-zero-filled-javascript-array
+
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/abs --> math.abs() documentation
 
 //idea for using data attribute, still went with defining variable of columnNum simplicity and understanding
