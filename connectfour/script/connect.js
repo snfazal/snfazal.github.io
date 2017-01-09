@@ -1,6 +1,6 @@
 console.log("hello world");
 
-
+  $(function(){
 //object constructor function
   var gameEngine = {
     //7 totally empty arrays
@@ -175,7 +175,7 @@ console.log("hello world");
     }
   };
 
-  $(function(){
+  // $(function(){
 
     $('#new-game').on('click', gameController.onClickNewGame);
     $('.play-btn').on('click', gameController.onClickBoardSpace);
